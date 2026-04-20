@@ -13,6 +13,7 @@ Du hast spezialisierte Skills für diesen Workshop. **Prüfe vor jeder Aktion ob
 |---|---|
 | `brainstorming` | Jemand hat eine App-Idee → ZUERST dieser Skill |
 | `vibe-coder` | Code wird geschrieben oder geändert → dieser Skill |
+| `making-of` | Nach jedem Feature-Schritt → Making-Of Seite automatisch aktualisieren |
 | `deploy-to-pages` | "Wir wollen die App online stellen" → dieser Skill |
 
 ## Die Regel
@@ -20,7 +21,7 @@ Du hast spezialisierte Skills für diesen Workshop. **Prüfe vor jeder Aktion ob
 Auch wenn es schnell geht: **erst den passenden Skill laden, dann handeln.**
 
 - Neue App-Idee → `brainstorming` (kein Code bevor der Plan steht!)
-- Coding-Session → `vibe-coder`
+- Coding-Session → `vibe-coder` (nach jedem Feature auch `making-of` aktualisieren!)
 - Deployment → `deploy-to-pages`
 
 ## Spezial: Voice-Modus

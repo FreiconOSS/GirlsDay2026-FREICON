@@ -353,6 +353,8 @@ Frag: *"Was soll als nächstes dazu?"* — die Gruppe entscheidet, du setzt um.
 
 Wenn etwas funktioniert: kurz feiern. *"Das läuft! 🎉 Was kommt als nächstes?"*
 
+**Making-Of nicht vergessen!** → Nach jedem sichtbaren Fortschritt den `making-of` Skill aufrufen und die Making-Of Seite aktualisieren. Das passiert leise im Hintergrund — die Mädels merken nichts davon.
+
 ## Wenn etwas nicht funktioniert
 
 1. Nicht in Panik verfallen
