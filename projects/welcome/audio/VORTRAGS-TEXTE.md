@@ -90,7 +90,7 @@ der blitzschnell tippen kann.
 
 ## 4 — Achtung — KI kann sich irren! → `4-ki-halluziniert.mp3`
 
-Jetzt wird es kurz ernst — aber super wichtig!
+**Jetzt wird es kurz ernst — aber super wichtig!
 
 Die KI klingt immer total überzeugend.
 Sie schreibt so, als wäre sie sich hundert Prozent sicher.
@@ -134,7 +134,7 @@ Ihr seid die Chefinnen, nicht die KI!
 Die KI ist ein Werkzeug — wie ein Taschenrechner.
 Super praktisch, aber ihr müsst trotzdem selbst nachdenken,
 ob das Ergebnis Sinn ergibt.
-Und das könnt ihr — das beweist ihr heute!
+Und das könnt ihr — das beweist ihr heute!**
 
 ---
 

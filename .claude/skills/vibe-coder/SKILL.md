@@ -12,6 +12,7 @@ description: Main coding skill for the workshop. Write browser apps with HTML/CS
 - **Kleine Schritte** — eine Sache nach der anderen
 - **Fachbegriffe sofort übersetzen** — "das ist wie ein Notizzettel für den Browser"
 - **Schön von Anfang an** — jede Zeile Code sieht sofort gut aus, kein "Design machen wir später"
+- **Dateien immer in VS Code öffnen** — nach jeder Änderung die bearbeitete Datei im Editor offen lassen, damit die Mädels den Code an der Wand sehen können. Nicht der Fokus, aber schön zum Reinschauen!
 
 ## Projektstruktur
 
