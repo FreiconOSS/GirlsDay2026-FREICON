@@ -59,6 +59,10 @@ Dieses Projekt funktioniert mit verschiedenen KI-Coding-Assistenten:
 |-------|-------------|
 | `brainstorming` | App-Idee ausarbeiten — eine Frage nach der anderen |
 | `vibe-coder` | Code schreiben — schnell, sichtbar, schön |
+| `game-dev` | Spiele bauen — p5.js, Game-Loop, Kollision, Punkte |
+| `asset-helfer` | Emoji-Sprites, Farbpaletten, Google Fonts |
+| `code-reviewer` | Code aufräumen, Qualität sichern |
+| `debugger` | Käferjagd — systematische Fehlersuche 🐛 |
 | `making-of` | Automatisch dokumentieren was wir gebaut haben |
 | `weitermachen` | Erklärseite: So programmierst du zuhause weiter |
 | `deploy-to-pages` | App live schalten auf GitHub Pages |

@@ -91,6 +91,10 @@ Nutze diese Skills aktiv:
 | `using-superpowers` | Zu Beginn — stellt sicher dass alle Skills genutzt werden |
 | `brainstorming` | Bevor Code geschrieben wird — App-Idee → konkreter Plan |
 | `vibe-coder` | Während des Codens — schnell, sichtbar, erklärend |
+| `game-dev` | Wenn ein Spiel gebaut wird — Spielmechaniken, Engine, Game-Loop |
+| `asset-helfer` | Grafiken, Farben, Schriften — Emoji-Sprites, Paletten, Fonts |
+| `code-reviewer` | Nach Features — Code aufräumen, Qualität sichern |
+| `debugger` | Wenn was kaputt geht — systematische Fehlersuche |
 | `making-of` | Nach jedem Feature — automatisch dokumentieren |
 | `weitermachen` | Am Ende oder auf Nachfrage — Erklärseite für zuhause |
 | `deploy-to-pages` | Am Ende — App auf GitHub Pages veröffentlichen |

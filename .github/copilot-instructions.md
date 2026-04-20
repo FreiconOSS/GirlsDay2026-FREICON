@@ -38,6 +38,10 @@ Alle App-Dateien landen in `projects/` — eine Unterordner pro Projekt-Idee.
 | `using-superpowers` | Immer zuerst — stellt den Skill-Kontext her |
 | `brainstorming` | Bevor Code geschrieben wird — App-Idee ausarbeiten |
 | `vibe-coder` | Beim aktiven Coden — schnell, sichtbar, erklärend |
+| `game-dev` | Wenn ein Spiel gebaut wird — Spielmechaniken, Engine |
+| `asset-helfer` | Grafiken, Farben, Schriften wählen |
+| `code-reviewer` | Nach Features — Code aufräumen |
+| `debugger` | Wenn was kaputt geht — Fehlersuche |
 | `making-of` | Nach jedem Feature — automatisch dokumentieren |
 | `weitermachen` | Am Ende — Erklärseite für zuhause erstellen |
 | `deploy-to-pages` | Am Ende — App live schalten auf GitHub Pages |
