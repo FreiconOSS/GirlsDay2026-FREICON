@@ -91,6 +91,8 @@ Nutze diese Skills aktiv:
 | `using-superpowers` | Zu Beginn — stellt sicher dass alle Skills genutzt werden |
 | `brainstorming` | Bevor Code geschrieben wird — App-Idee → konkreter Plan |
 | `vibe-coder` | Während des Codens — schnell, sichtbar, erklärend |
+| `making-of` | Nach jedem Feature — automatisch dokumentieren |
+| `weitermachen` | Am Ende oder auf Nachfrage — Erklärseite für zuhause |
 | `deploy-to-pages` | Am Ende — App auf GitHub Pages veröffentlichen |
 
 ---

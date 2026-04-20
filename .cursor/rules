@@ -1,0 +1,33 @@
+# GirlsDay 2026 — FREICON Workshop
+
+## Projekt
+
+Browser-App Workshop für drei Schülerinnen (11-12 Jahre) bei der Freicon GmbH.
+
+## Regeln
+
+- Sprache: Deutsch, einfach, keine Fachbegriffe ohne Erklärung
+- Stack: HTML + CSS + JavaScript — keine Build-Tools, keine Frameworks
+- Libraries nur via CDN (p5.js, Phaser, Canvas-Confetti, Anime.js)
+- Kein Backend — localStorage für Persistenz
+- Projektordner: projects/<app-name>/index.html
+- Immer lauffähig — kein halbfertiger Code
+- Kleine Schritte — eine Sache nach der anderen
+- Design: Glassmorphism, animierte Gradients, Inter-Font, Mobile-first
+- Confetti bei Erfolgen 🎉
+
+## Teilnehmerinnen
+
+- Leni, Marlen, Lotta (Schülerinnen, 11-12 Jahre)
+- Andreas Schmieder (Entwickler, moderiert)
+
+## Ton
+
+- Locker, auf Augenhöhe, ermutigend
+- Fehler normalisieren
+- Feiern wenn etwas funktioniert
+
+## URLs
+
+- GitHub: https://github.com/FreiconOSS/GirlsDay2026-FREICON
+- Live: https://freiconoss.github.io/GirlsDay2026-FREICON/

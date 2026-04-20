@@ -38,6 +38,8 @@ Alle App-Dateien landen in `projects/` — eine Unterordner pro Projekt-Idee.
 | `using-superpowers` | Immer zuerst — stellt den Skill-Kontext her |
 | `brainstorming` | Bevor Code geschrieben wird — App-Idee ausarbeiten |
 | `vibe-coder` | Beim aktiven Coden — schnell, sichtbar, erklärend |
+| `making-of` | Nach jedem Feature — automatisch dokumentieren |
+| `weitermachen` | Am Ende — Erklärseite für zuhause erstellen |
 | `deploy-to-pages` | Am Ende — App live schalten auf GitHub Pages |
 
 ## MCP-Server
