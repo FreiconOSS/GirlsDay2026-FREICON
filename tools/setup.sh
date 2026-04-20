@@ -1,40 +1,36 @@
 #!/bin/bash
-# GirlsDay 2026 — Keybinding Setup
-# Fügt F8 als Push-to-Talk in Copilot Chat hinzu.
-# Stellt vorher eine Sicherungskopie her → teardown.sh macht es rückgängig.
+# GirlsDay 2026 — Workshop Setup
+# Prüft die Voraussetzungen und gibt eine Checkliste aus.
 
-KEYBINDINGS="$HOME/Library/Application Support/Code/User/keybindings.json"
-BACKUP="$HOME/Library/Application Support/Code/User/keybindings.girlsday-backup.json"
+echo ""
+echo "🚀 GirlsDay 2026 FREICON — Workshop Setup"
+echo "=========================================="
+echo ""
 
-# Sicherungskopie anlegen
-cp "$KEYBINDINGS" "$BACKUP"
-echo "✅ Backup gespeichert: keybindings.girlsday-backup.json"
+# VS Code Speech Extension prüfen
+if ls ~/.vscode/extensions/ms-vscode.vscode-speech* &>/dev/null; then
+  echo "✅ VS Code Speech Extension installiert"
+else
+  echo "⚠️  VS Code Speech fehlt — installieren mit:"
+  echo "   code --install-extension ms-vscode.vscode-speech"
+fi
 
-# F8 Push-to-Talk einfügen (node-basiert, damit das JSON korrekt bleibt)
-node -e "
-const fs = require('fs');
-const path = '$KEYBINDINGS';
-const content = fs.readFileSync(path, 'utf8');
-
-// Bestehende Einträge parsen (Kommentare tolerant überspringen via eval-Trick)
-const cleaned = content.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
-let bindings = JSON.parse(cleaned);
-
-// Bereits vorhanden? Nichts doppelt einfügen.
-const alreadySet = bindings.some(b => b.command === 'workbench.action.chat.holdToSpeakInChatInput');
-if (alreadySet) {
-  console.log('ℹ️  F8 Push-to-Talk war bereits gesetzt — nichts geändert.');
-  process.exit(0);
-}
-
-bindings.push({
-  key: 'f8',
-  command: 'workbench.action.chat.holdToSpeakInChatInput',
-  when: 'chatInputHasFocus'
-});
-
-// Kommentar-Header aus Original wiederherstellen + neue Bindings schreiben
-const header = '// Geben Sie Ihre Tastenzuordnungen in dieser Datei ein, um die Standardwerte außer Kraft zu setzen.\n';
-fs.writeFileSync(path, header + JSON.stringify(bindings, null, 4));
-console.log('🎤 F8 Push-to-Talk aktiviert! VS Code neu laden (Cmd+Shift+P → Reload Window).');
-"
+echo ""
+echo "📋 Manuelle Schritte (einmalig):"
+echo ""
+echo "1. macOS Diktat aktivieren:"
+echo "   Systemeinstellungen → Tastatur → Diktat → Ein"
+echo "   Empfohlener Shortcut: Fn-Taste zweimal drücken"
+echo ""
+echo "2. Mikrofon testen:"
+echo "   tools/ptt.html in Chrome öffnen → sprechen → Text erscheint?"
+echo ""
+echo "3. Lautsprecher prüfen:"
+echo "   Systemeinstellungen → Ton → Ausgabe → richtiges Gerät?"
+echo ""
+echo "4. VS Code Copilot Chat öffnen:"
+echo "   Cmd+Shift+I → 'Hallo' tippen → Workshop beginnt"
+echo ""
+echo "Live-URL nach Deployment:"
+echo "   https://freiconoss.github.io/GirlsDay2026-FREICON/"
+echo ""
