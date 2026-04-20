@@ -117,6 +117,23 @@
     }
     #copied-badge.show { opacity: 1; }
 
+    /* Copy-Button */
+    #copy-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      background: #2a2a3a;
+      border: 1px solid #444;
+      color: #aaa;
+      padding: 4px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.15s;
+      display: none;
+    }
+    #copy-btn:hover { border-color: #888; color: white; background: #333345; }
+
     /* Name-Buttons */
     #names {
       display: flex;
@@ -179,24 +196,28 @@
   <div id="result-box">
     <div id="result-text" class="placeholder">Dein Text erscheint hier …</div>
     <div id="copied-badge">✓ Kopiert!</div>
+    <button id="copy-btn">📋 Kopieren</button>
   </div>
 
   <div id="status"></div>
 
 <script>
   // ── State ──────────────────────────────────────────────
-  let activeName   = '';
-  let recognition  = null;
-  let isListening  = false;
-  let finalText    = '';
+  let activeName     = '';
+  let recognition    = null;
+  let isListening    = false;
+  let finalText      = '';
+  let collectedText  = '';  // sammelt Text über Neustarts hinweg
 
   const btn          = document.getElementById('btn');
   const btnLabel     = document.getElementById('btn-label');
   const micIcon      = document.getElementById('mic-icon');
   const resultText   = document.getElementById('result-text');
   const copiedBadge  = document.getElementById('copied-badge');
+  const copyBtn      = document.getElementById('copy-btn');
   const activeNameEl = document.getElementById('active-name');
   const statusEl     = document.getElementById('status');
+  let lastMessage    = '';  // letzter fertiger Text für den Copy-Button
 
   // ── Name-Buttons ───────────────────────────────────────
   document.querySelectorAll('.name-btn').forEach(b => {
@@ -219,26 +240,29 @@
     recognition = new SpeechRecognition();
     recognition.lang = 'de-DE';
     recognition.interimResults = true;
-    recognition.continuous = false;
+    recognition.continuous = true;
 
     recognition.onresult = (e) => {
       let interim = '';
-      finalText = '';
-      for (let i = e.resultIndex; i < e.results.length; i++) {
+      let sessionFinal = '';
+      for (let i = 0; i < e.results.length; i++) {
         if (e.results[i].isFinal) {
-          finalText += e.results[i][0].transcript;
+          sessionFinal += e.results[i][0].transcript;
         } else {
           interim += e.results[i][0].transcript;
         }
       }
-      const display = finalText || interim;
-      showText(display, false);
+      finalText = sessionFinal;
+      const display = (collectedText + sessionFinal + ' ' + interim).trim();
+      showText(display || '…', false);
     };
 
     recognition.onend = () => {
       if (isListening) {
-        // Wurde noch nicht manuell gestoppt — Resultat übernehmen
-        stopListening(true);
+        // Text aus dieser Session sichern bevor wir neu starten
+        collectedText += finalText;
+        finalText = '';
+        try { recognition.start(); } catch(_) {}
       }
     };
 
@@ -255,6 +279,7 @@
     if (isListening || !recognition) return;
     isListening = true;
     finalText = '';
+    collectedText = '';
     btn.classList.add('listening');
     btnLabel.textContent = 'Zuhören …';
     micIcon.textContent = '🔴';
@@ -271,10 +296,13 @@
     micIcon.textContent = '🎤';
     try { recognition.stop(); } catch(_) {}
 
-    if (commit && finalText.trim()) {
+    const fullText = (collectedText + finalText).trim();
+    if (commit && fullText) {
       const prefix = activeName ? `${activeName}: ` : '';
-      const message = prefix + finalText.trim();
+      const message = prefix + fullText;
+      lastMessage = message;
       showText(message, false);
+      copyBtn.style.display = 'block';
       copyToClipboard(message);
     }
   }
@@ -314,6 +342,11 @@
       e.preventDefault();
       stopListening(true);
     }
+  });
+
+  // ── Copy-Button ───────────────────────────────────────
+  copyBtn.addEventListener('click', () => {
+    if (lastMessage) copyToClipboard(lastMessage);
   });
 </script>
 </body>

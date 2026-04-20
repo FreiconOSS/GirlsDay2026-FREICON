@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚀 GirlsDay 2026 — Willkommen!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --bg-deep:    #0f0f1a;
+      --bg-glass:   rgba(255, 255, 255, 0.07);
+      --accent-1:   #a78bfa;
+      --accent-2:   #f472b6;
+      --accent-3:   #34d399;
+      --accent-4:   #fbbf24;
+      --text-main:  #f0f0f0;
+      --text-soft:  #aaa;
+      --text-muted: #666;
+      --radius-md:  16px;
+      --radius-lg:  24px;
+      --radius-full: 9999px;
+      --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(-45deg, #0f0f1a, #1a1028, #0f1a2e, #1a0f28);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: var(--text-main);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes wave {
+      0%   { transform: rotate(0deg); }
+      10%  { transform: rotate(14deg); }
+      20%  { transform: rotate(-8deg); }
+      30%  { transform: rotate(14deg); }
+      40%  { transform: rotate(-4deg); }
+      50%  { transform: rotate(10deg); }
+      60%  { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* ── Hero Section ────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-emoji {
+      font-size: 4rem;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 16px 0 8px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .hero .date {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    /* ── Namen-Begrüßung ─────────────────────────── */
+    .names-section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 20px 40px;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .name-badge {
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 140px;
+    }
+
+    .name-badge:hover {
+      transform: translateY(-6px) scale(1.03);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .name-badge .avatar {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .name-badge .name {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .name-badge .wave-emoji {
+      display: inline-block;
+      animation: wave 2.5s ease-in-out infinite;
+      transform-origin: 70% 70%;
+      font-size: 1.4rem;
+      margin-left: 4px;
+    }
+
+    .name-badge:nth-child(1) { --badge-color: var(--accent-1); }
+    .name-badge:nth-child(2) { --badge-color: var(--accent-2); }
+    .name-badge:nth-child(3) { --badge-color: var(--accent-3); }
+    .name-badge:nth-child(4) { --badge-color: var(--accent-4); }
+
+    .name-badge:hover {
+      box-shadow: 0 8px 32px rgba(167, 139, 250, 0.2);
+    }
+
+    .name-badge .name { color: var(--badge-color); }
+
+    /* ── Karten-Grid ─────────────────────────────── */
+    .cards-container {
+      width: min(900px, 92vw);
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      transition: all 0.4s ease;
+    }
+
+    /* Fokus-Modus: Grid wird einspaltrig */
+    .cards-container.focus-mode {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease-out both;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.5s; }
+    .card:nth-child(4) { animation-delay: 0.6s; }
+    .card:nth-child(5) { animation-delay: 0.7s; }
+    .card:nth-child(6) { animation-delay: 0.8s; }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--card-color, var(--accent-1)), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    /* ── Mini-Karten (andere Karten im Fokus-Modus) ── */
+    .cards-container.focus-mode .card.mini {
+      padding: 0;
+      background: transparent;
+      backdrop-filter: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+      animation: none;
+    }
+
+    .cards-container.focus-mode .card.mini:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .cards-container.focus-mode .card.mini::before { display: none; }
+
+    .cards-container.focus-mode .card.mini .card-title,
+    .cards-container.focus-mode .card.mini .card-teaser,
+    .cards-container.focus-mode .card.mini .card-expand-hint,
+    .cards-container.focus-mode .card.mini .card-detail {
+      display: none;
+    }
+
+    .cards-container.focus-mode .card.mini .card-icon {
+      font-size: 1.6rem;
+      margin: 0;
+      display: inline-block;
+    }
+
+    /* Mini-Karten Leiste */
+    .mini-nav {
+      display: none;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 20px 16px;
+      width: min(900px, 92vw);
+      margin: 0 auto;
+    }
+
+    .mini-nav.visible { display: flex; }
+
+    .mini-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .mini-nav-btn:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-main);
+      transform: translateY(-2px);
+    }
+
+    .mini-nav-btn.active {
+      border-color: var(--btn-color, var(--accent-1));
+      color: var(--text-main);
+      box-shadow: 0 0 15px rgba(167, 139, 250, 0.15);
+    }
+
+    .mini-nav-btn:nth-child(1) { --btn-color: #a78bfa; }
+    .mini-nav-btn:nth-child(2) { --btn-color: #f472b6; }
+    .mini-nav-btn:nth-child(3) { --btn-color: #34d399; }
+    .mini-nav-btn:nth-child(4) { --btn-color: #fbbf24; }
+    .mini-nav-btn:nth-child(5) { --btn-color: #60a5fa; }
+    .mini-nav-btn:nth-child(6) { --btn-color: #fb923c; }
+
+    .mini-nav-btn .mini-icon { font-size: 1.2rem; }
+    .mini-nav-btn .mini-label { }
+
+    @media (max-width: 600px) {
+      .mini-nav-btn { padding: 6px 12px; font-size: 0.75rem; }
+      .mini-nav-btn .mini-label { display: none; }
+      .mini-nav-btn .mini-icon { font-size: 1.4rem; }
+    }
+
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-teaser {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .card-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, margin-top 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+
+    .card.open .card-detail {
+      max-height: 600px;
+      opacity: 1;
+      margin-top: 16px;
+    }
+
+    .card.open .card-teaser {
+      color: var(--text-main);
+    }
+
+    .card-detail-inner {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 16px;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+
+    .card-detail-inner .visual-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 10px 0;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: var(--radius-md);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.4s ease;
+    }
+
+    .visual-row.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .visual-row .step-emoji {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .visual-row .step-text {
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+
+    .card-expand-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      transition: all 0.3s;
+    }
+
+    .card.open .card-expand-hint {
+      opacity: 0;
+    }
+
+    /* Präsentations-Modus: Karte leuchtet während gesprochen wird */
+    .card.presenting {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 30px rgba(167, 139, 250, 0.15);
+    }
+
+    .card.presenting::before {
+      opacity: 1;
+      animation: shimmer 2s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.6; }
+      50%      { opacity: 1; }
+    }
+
+    /* Karten-Farben */
+    .card:nth-child(1) { --card-color: #a78bfa; }
+    .card:nth-child(2) { --card-color: #f472b6; }
+    .card:nth-child(3) { --card-color: #34d399; }
+    .card:nth-child(4) { --card-color: #fbbf24; }
+    .card:nth-child(5) { --card-color: #60a5fa; }
+    .card:nth-child(6) { --card-color: #fb923c; }
+
+    .card-title { color: var(--card-color); }
+
+    /* ── Floating Deko-Emojis ────────────────────── */
+    .floating-emojis {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .float-emoji {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.06;
+      animation: floatAround 20s linear infinite;
+    }
+
+    @keyframes floatAround {
+      0%   { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(360deg); }
+    }
+
+    /* ── Footer ──────────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      animation: fadeInUp 0.6s ease-out 1s both;
+    }
+
+    .footer a {
+      color: var(--accent-1);
+      text-decoration: none;
+    }
+
+    /* ── QR-Code Section ─────────────────────────── */
+    .qr-section {
+      display: flex;
+      justify-content: center;
+      padding: 20px 20px 60px;
+      animation: fadeInUp 0.6s ease-out 1.1s both;
+    }
+
+    .qr-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 28px 36px;
+      text-align: center;
+    }
+
+    .qr-card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-1);
+      margin-bottom: 4px;
+    }
+
+    .qr-card p {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+
+    .qr-card img {
+      border-radius: 12px;
+      width: 200px;
+      height: 200px;
+    }
+
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 40px 16px 24px; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero-emoji { font-size: 2.8rem; }
+      .hero .subtitle { font-size: 0.95rem; }
+      .hero .date { font-size: 0.8rem; }
+
+      .names-section { gap: 10px; padding: 0 16px 28px; }
+      .name-badge { min-width: 70px; padding: 14px 16px; }
+      .name-badge .avatar { font-size: 2rem; margin-bottom: 4px; }
+      .name-badge .name { font-size: 1rem; }
+      .name-badge .wave-emoji { font-size: 1.1rem; }
+
+      .cards-container {
+        grid-template-columns: 1fr;
+        padding: 0 16px 40px;
+        gap: 14px;
+      }
+
+      .card { padding: 20px 18px; }
+      .card-icon { font-size: 2.2rem; margin-bottom: 10px; }
+      .card-title { font-size: 1.05rem; }
+      .card-teaser { font-size: 0.85rem; }
+
+      .visual-row { padding: 8px 10px; gap: 10px; }
+      .visual-row .step-emoji { font-size: 1.4rem; }
+      .visual-row .step-text { font-size: 0.82rem; }
+
+      #active-name { font-size: 0.8rem; }
+    }
+
+    /* Sehr kleine Screens (iPhone SE etc.) */
+    @media (max-width: 380px) {
+      .hero h1 { font-size: 1.4rem; }
+      .names-section { gap: 8px; }
+      .name-badge { min-width: 65px; padding: 10px 12px; }
+      .name-badge .avatar { font-size: 1.6rem; }
+      .name-badge .name { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Deko-Emojis im Hintergrund -->
+  <div class="floating-emojis" id="floatingEmojis"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-emoji">🚀</span>
+    <h1>GirlsDay 2026</h1>
+    <p class="subtitle">Willkommen bei der Freicon! Heute bauen wir zusammen eine App.</p>
+    <p class="date">📅 Mittwoch, 23. April 2026 &nbsp;·&nbsp; 🏢 Freicon GmbH</p>
+  </section>
+
+  <!-- Namen -->
+  <section class="names-section">
+    <div class="name-badge" onclick="greet(this, 'Leni')">
+      <span class="avatar" id="avatar-leni">👩‍💻</span>
+      <span class="name">Leni <span class="wave-emoji">👋</span></span>
+    </div>
+    <div class="name-badge" onclick="greet(this, 'Marlen')">
+      <span class="avatar" id="avatar-marlen">👩‍🎨</span>
+      <span class="name">Marlen <span class="wave-emoji">👋</span></span>
+    </div>
+    <div class="name-badge" onclick="greet(this, 'Lotta')">
+      <span class="avatar" id="avatar-lotta">👩‍🔬</span>
+      <span class="name">Lotta <span class="wave-emoji">👋</span></span>
+    </div>
+    <div class="name-badge" onclick="greet(this, 'Andreas')">
+      <span class="avatar">🧑‍💻</span>
+      <span class="name">Andreas <span class="wave-emoji">👋</span></span>
+    </div>
+  </section>
+
+  <!-- Mini-Navigation (erscheint im Fokus-Modus) -->
+  <nav class="mini-nav" id="miniNav">
+    <button class="mini-nav-btn" onclick="focusCard(0)">
+      <span class="mini-icon">🗓️</span><span class="mini-label">Heute</span>
+    </button>
+    <button class="mini-nav-btn" onclick="focusCard(1)">
+      <span class="mini-icon">🎵</span><span class="mini-label">Vibe Coding</span>
+    </button>
+    <button class="mini-nav-btn" onclick="focusCard(2)">
+      <span class="mini-icon">🧠</span><span class="mini-label">KI</span>
+    </button>
+    <button class="mini-nav-btn" onclick="focusCard(3)">
+      <span class="mini-icon">📱</span><span class="mini-label">Die App</span>
+    </button>
+    <button class="mini-nav-btn" onclick="focusCard(4)">
+      <span class="mini-icon">🎤</span><span class="mini-label">Sprechen</span>
+    </button>
+    <button class="mini-nav-btn" onclick="focusCard(5)">
+      <span class="mini-icon">💪</span><span class="mini-label">Fehler</span>
+    </button>
+  </nav>
+
+  <!-- Info-Karten -->
+  <section class="cards-container" id="cardsContainer">
+
+    <!-- Karte 1: Was machen wir heute? -->
+    <div class="card" onclick="toggleCard(this)">
+      <span class="card-icon">🗓️</span>
+      <div class="card-title">Was machen wir heute?</div>
+      <div class="card-teaser">Wir bauen in einem Tag eine echte App — von der Idee bis online!</div>
+      <div class="card-expand-hint">▼ Tippe für mehr</div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="visual-row">
+            <span class="step-emoji">💡</span>
+            <span class="step-text"><strong>Schritt 1:</strong> Wir überlegen uns zusammen, was für eine App wir bauen wollen</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">💻</span>
+            <span class="step-text"><strong>Schritt 2:</strong> Wir sagen der KI was sie programmieren soll — und sie tippt den Code!</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🎨</span>
+            <span class="step-text"><strong>Schritt 3:</strong> Wir machen die App hübsch mit Farben, Animationen und coolen Effekten</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🌍</span>
+            <span class="step-text"><strong>Schritt 4:</strong> Wir stellen die App ins Internet — eure Freunde können sie dann ausprobieren!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Karte 2: Was ist Vibe Coding? -->
+    <div class="card" onclick="toggleCard(this)">
+      <span class="card-icon">🎵</span>
+      <div class="card-title">Was ist Vibe Coding?</div>
+      <div class="card-teaser">Programmieren ohne tippen — ihr redet, die KI schreibt den Code!</div>
+      <div class="card-expand-hint">▼ Tippe für mehr</div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="visual-row">
+            <span class="step-emoji">🎤</span>
+            <span class="step-text">Ihr sprecht in ein Mikrofon und sagt was die App können soll</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🤖</span>
+            <span class="step-text">Die KI versteht euch und schreibt den passenden Code</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">✨</span>
+            <span class="step-text">Innerhalb von Sekunden seht ihr das Ergebnis im Browser</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🔄</span>
+            <span class="step-text">Gefällt euch was nicht? Einfach sagen — die KI ändert es sofort!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Karte 3: Was ist KI? -->
+    <div class="card" onclick="toggleCard(this)">
+      <span class="card-icon">🧠</span>
+      <div class="card-title">Was ist eigentlich KI?</div>
+      <div class="card-teaser">Künstliche Intelligenz — ein Computer der gelernt hat, Sprache zu verstehen.</div>
+      <div class="card-expand-hint">▼ Tippe für mehr</div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="visual-row">
+            <span class="step-emoji">📚</span>
+            <span class="step-text">Die KI hat Millionen von Texten und Code-Beispielen gelesen</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">💬</span>
+            <span class="step-text">Dadurch kann sie Sprache verstehen — fast wie ein Mensch</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🛠️</span>
+            <span class="step-text">Wir nutzen heute "GitHub Copilot" — die KI speziell für Programmieren</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🤝</span>
+            <span class="step-text">Ihr seid der Chef — die KI ist euer fleißiger Assistent!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Karte 4: Was ist eine App? -->
+    <div class="card" onclick="toggleCard(this)">
+      <span class="card-icon">📱</span>
+      <div class="card-title">Was bauen wir genau?</div>
+      <div class="card-teaser">Eine App die im Browser läuft — auf dem Handy, Tablet oder Computer!</div>
+      <div class="card-expand-hint">▼ Tippe für mehr</div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="visual-row">
+            <span class="step-emoji">🌐</span>
+            <span class="step-text">Die App läuft direkt im Browser — keine Installation nötig!</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🎮</span>
+            <span class="step-text">Es kann ein Spiel sein, eine Quiz-App, ein Tool — ihr entscheidet!</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🔗</span>
+            <span class="step-text">Am Ende bekommt ihr einen Link — den könnt ihr mit allen teilen</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">📲</span>
+            <span class="step-text">Und einen QR-Code für euer Handy — einfach scannen und loslegen!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Karte 5: Wie sprechen wir mit der KI? -->
+    <div class="card" onclick="toggleCard(this)">
+      <span class="card-icon">🎤</span>
+      <div class="card-title">Wie reden wir mit der KI?</div>
+      <div class="card-teaser">Ganz einfach — wie mit einer Freundin! Nur auf Deutsch.</div>
+      <div class="card-expand-hint">▼ Tippe für mehr</div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="visual-row">
+            <span class="step-emoji">🎧</span>
+            <span class="step-text">Wir haben ein Mikrofon — ihr sprecht einfach drauf los</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">📝</span>
+            <span class="step-text">Die KI versteht was ihr sagt und antwortet als Text</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🙋‍♀️</span>
+            <span class="step-text">Sagt einfach kurz euren Namen, damit die KI weiß wer spricht</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">😊</span>
+            <span class="step-text">Es gibt keine dummen Fragen! Die KI freut sich über jede Idee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Karte 6: Keine Angst vor Fehlern! -->
+    <div class="card" onclick="toggleCard(this)">
+      <span class="card-icon">💪</span>
+      <div class="card-title">Keine Angst vor Fehlern!</div>
+      <div class="card-teaser">Fehler gehören dazu — auch echte Profis machen ständig welche!</div>
+      <div class="card-expand-hint">▼ Tippe für mehr</div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="visual-row">
+            <span class="step-emoji">🐛</span>
+            <span class="step-text">Fehler im Code heißen "Bugs" — wie kleine Käfer die wir fangen</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🔧</span>
+            <span class="step-text">Wenn was nicht klappt, fixen wir es einfach — zusammen!</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🎉</span>
+            <span class="step-text">Jeder Fehler den wir finden bringt uns der fertigen App näher</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🏆</span>
+            <span class="step-text">Am Ende des Tages habt ihr eine echte App gebaut — das können die wenigsten!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    Made with 💜 bei der <a href="https://www.freicon.de" target="_blank">Freicon GmbH</a> — GirlsDay 2026
+  </div>
+
+  <!-- QR-Code Section -->
+  <section class="qr-section" id="qr-section">
+    <div class="qr-card">
+      <h2>📱 Scanne mich!</h2>
+      <p>Öffne die Seite auf deinem Handy</p>
+      <img id="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&bgcolor=0f0f1a&color=a78bfa&data=https://freiconoss.github.io/GirlsDay2026-FREICON/projects/welcome/" alt="QR-Code">
+    </div>
+  </section>
+
+<script>
+  // ── Audio-Dateien für Karten-Vorträge ──────────
+  const audioFiles = {
+    'Was machen wir heute?':    'audio/1-was-machen-wir.mp3',
+    'Was ist Vibe Coding?':     'audio/2-vibe-coding.mp3',
+    'Was ist eigentlich KI?':   'audio/3-was-ist-ki.mp3',
+    'Was bauen wir genau?':     'audio/4-was-bauen-wir.mp3',
+    'Wie reden wir mit der KI?':'audio/5-wie-reden-wir.mp3',
+    'Keine Angst vor Fehlern!': 'audio/6-keine-angst.mp3'
+  };
+
+  let currentAudio = null;
+  let presentationTimer = null;
+
+  const cardsContainer = document.getElementById('cardsContainer');
+  const miniNav = document.getElementById('miniNav');
+  const allCards = Array.from(document.querySelectorAll('.card'));
+  const miniNavBtns = Array.from(document.querySelectorAll('.mini-nav-btn'));
+
+  function stopAudio() {
+    if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+    if (presentationTimer) { clearInterval(presentationTimer); presentationTimer = null; }
+  }
+
+  function resetAllCards() {
+    stopAudio();
+    allCards.forEach(c => {
+      c.classList.remove('open', 'presenting');
+      c.style.display = '';
+      c.querySelectorAll('.visual-row').forEach(r => r.classList.remove('visible'));
+    });
+    miniNavBtns.forEach(b => b.classList.remove('active'));
+    cardsContainer.classList.remove('focus-mode');
+    miniNav.classList.remove('visible');
+  }
+
+  function focusCard(index) {
+    stopAudio();
+
+    const card = allCards[index];
+    if (!card) return;
+
+    // Fokus-Modus aktivieren
+    cardsContainer.classList.add('focus-mode');
+    miniNav.classList.add('visible');
+
+    // Alle Karten ausblenden, nur die aktive zeigen
+    allCards.forEach((c, i) => {
+      c.classList.remove('open', 'presenting');
+      c.querySelectorAll('.visual-row').forEach(r => r.classList.remove('visible'));
+      if (i === index) {
+        c.style.display = '';
+        c.classList.add('open', 'presenting');
+      } else {
+        c.style.display = 'none';
+      }
+    });
+
+    // Mini-Nav aktiven Button markieren
+    miniNavBtns.forEach((b, i) => b.classList.toggle('active', i === index));
+
+    // Smooth scrollen
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Audio abspielen
+    const title = card.querySelector('.card-title').textContent;
+    const audioSrc = audioFiles[title];
+    const rows = Array.from(card.querySelectorAll('.visual-row'));
+
+    if (audioSrc && rows.length) {
+      currentAudio = new Audio(audioSrc);
+
+      currentAudio.addEventListener('loadedmetadata', () => {
+        const duration = currentAudio.duration;
+        const interval = (duration * 1000) / (rows.length + 1);
+
+        let rowIndex = 0;
+        setTimeout(() => {
+          if (rows[0]) rows[0].classList.add('visible');
+          rowIndex = 1;
+
+          presentationTimer = setInterval(() => {
+            if (rowIndex < rows.length) {
+              rows[rowIndex].classList.add('visible');
+              rowIndex++;
+            } else {
+              clearInterval(presentationTimer);
+            }
+          }, interval);
+        }, interval * 0.5);
+      });
+
+      currentAudio.addEventListener('ended', () => {
+        card.classList.remove('presenting');
+        rows.forEach(r => r.classList.add('visible'));
+      });
+
+      currentAudio.play();
+    }
+  }
+
+  // ── Karten-Klick ──────────────────────────────
+  function toggleCard(card) {
+    const index = allCards.indexOf(card);
+    const wasOpen = card.classList.contains('open');
+
+    if (wasOpen) {
+      // Zurück zur Übersicht
+      resetAllCards();
+    } else {
+      // In den Fokus-Modus wechseln
+      focusCard(index);
+    }
+  }
+
+  // ── Confetti bei Namens-Klick ─────────────────
+  function greet(badge, name) {
+    confetti({
+      particleCount: 60,
+      spread: 50,
+      origin: {
+        x: badge.getBoundingClientRect().left / window.innerWidth + badge.offsetWidth / window.innerWidth / 2,
+        y: badge.getBoundingClientRect().top / window.innerHeight
+      },
+      colors: ['#a78bfa', '#f472b6', '#34d399', '#fbbf24']
+    });
+
+    badge.style.transform = 'translateY(-8px) scale(1.08)';
+    setTimeout(() => { badge.style.transform = ''; }, 500);
+  }
+
+  // ── Floating Emojis im Hintergrund ────────────
+  const emojis = ['✨', '💻', '🎮', '🚀', '⭐', '🎵', '💡', '🌟', '🎨', '🔮'];
+  const container = document.getElementById('floatingEmojis');
+
+  for (let i = 0; i < 12; i++) {
+    const el = document.createElement('span');
+    el.className = 'float-emoji';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.animationDuration = (15 + Math.random() * 20) + 's';
+    el.style.animationDelay = (Math.random() * 15) + 's';
+    el.style.fontSize = (1.5 + Math.random() * 2) + 'rem';
+    container.appendChild(el);
+  }
+
+  // ── Avatar-Shuffle für die Mädels ─────────────
+  const girlAvatars = ['👩‍💻', '👩‍🎨', '👩‍🔬', '👧', '🧑‍🎤', '👩‍🚀', '🧑‍💻', '👩‍🏫', '🦸‍♀️', '👩‍🎓', '🧙‍♀️', '💃'];
+  const avatarEls = [
+    document.getElementById('avatar-leni'),
+    document.getElementById('avatar-marlen'),
+    document.getElementById('avatar-lotta')
+  ];
+
+  function shuffleAvatars() {
+    // Kopie mischen
+    const shuffled = [...girlAvatars].sort(() => Math.random() - 0.5);
+    avatarEls.forEach((el, i) => {
+      if (el) {
+        el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        el.style.transform = 'scale(0.5) rotate(20deg)';
+        el.style.opacity = '0';
+        setTimeout(() => {
+          el.textContent = shuffled[i];
+          el.style.transform = 'scale(1) rotate(0deg)';
+          el.style.opacity = '1';
+        }, 300);
+      }
+    });
+  }
+
+  // Beim Laden einmal shufflen, dann alle 4 Sekunden
+  shuffleAvatars();
+  setInterval(shuffleAvatars, 4000);
+</script>
+</body>
+</html>
