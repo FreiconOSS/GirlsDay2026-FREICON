@@ -23,6 +23,7 @@ Die App wird am Ende im Internet zugänglich sein: **https://freiconoss.github.i
 
 | Jahr | Projekt | Link |
 |------|---------|------|
+| 2025 | 🎮 ATNA-Man (Pac-Man) | [Spielen!](https://freiconoss.github.io/GirlsDay2025-FREICON/) |
 | 2026 | _(wird hier eingetragen)_ | — |
 
 ## Ordnerstruktur
