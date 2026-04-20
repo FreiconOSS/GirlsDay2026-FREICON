@@ -8,9 +8,10 @@
 #   1-was-machen-wir.mp3
 #   2-vibe-coding.mp3
 #   3-was-ist-ki.mp3
-#   4-was-bauen-wir.mp3
-#   5-wie-reden-wir.mp3
-#   6-keine-angst.mp3
+#   4-ki-halluziniert.mp3
+#   5-was-bauen-wir.mp3
+#   6-wie-reden-wir.mp3
+#   7-keine-angst.mp3
 
 ---
 
@@ -87,7 +88,57 @@ der blitzschnell tippen kann.
 
 ---
 
-## 4 — Was bauen wir genau? → `4-was-bauen-wir.mp3`
+## 4 — Achtung — KI kann sich irren! → `4-ki-halluziniert.mp3`
+
+Jetzt wird es kurz ernst — aber super wichtig!
+
+Die KI klingt immer total überzeugend.
+Sie schreibt so, als wäre sie sich hundert Prozent sicher.
+Aber wisst ihr was? Manchmal erzählt sie einfach Quatsch!
+Und das meiste davon klingt auch noch total echt.
+
+Das nennt man Halluzinieren.
+So wie wenn ihr nachts träumt und euer Gehirn Geschichten erfindet,
+die sich real anfühlen, aber es gar nicht sind.
+Genau das passiert der KI auch — nur tagsüber!
+
+Stellt euch vor, ihr fragt die KI:
+"Wann hat Albert Einstein das Smartphone erfunden?"
+Anstatt zu sagen "Äh, das hat er gar nicht gemacht!"
+könnte die KI antworten:
+"Albert Einstein erfand das Smartphone im Jahr 1921 in seiner Werkstatt in Berlin."
+Komplett frei erfunden — aber es klingt total echt!
+
+Das liegt daran, dass die KI nicht wirklich versteht, was sie sagt.
+Sie hat Milliarden Texte gelesen und setzt Wörter zusammen,
+die wahrscheinlich gut zusammenpassen.
+So ähnlich wie wenn euer Handy beim Tippen Wörter vorschlägt —
+nur viel, viel besser.
+Aber "besser vorschlagen" ist nicht das gleiche wie "wissen".
+
+Deshalb ist die wichtigste Regel im Umgang mit KI:
+Nicht alles blind glauben!
+Wenn euch etwas komisch vorkommt, hinterfragt es.
+Fragt einen Erwachsenen, schaut es nach, oder sagt:
+"Bist du dir sicher? Das klingt komisch."
+
+Beim Programmieren heute haben wir einen großen Vorteil:
+Wir sehen sofort, ob die KI Mist gebaut hat!
+Wenn sie Code schreibt der nicht funktioniert,
+sehen wir das direkt im Browser.
+Dann sagen wir einfach: "Das stimmt nicht, mach es nochmal."
+Und sie versucht es neu.
+
+Also merkt euch:
+Ihr seid die Chefinnen, nicht die KI!
+Die KI ist ein Werkzeug — wie ein Taschenrechner.
+Super praktisch, aber ihr müsst trotzdem selbst nachdenken,
+ob das Ergebnis Sinn ergibt.
+Und das könnt ihr — das beweist ihr heute!
+
+---
+
+## 5 — Was bauen wir genau? → `5-was-bauen-wir.mp3`
 
 Was wir bauen, entscheidet ihr!
 Aber ich erkläre euch mal, was möglich ist.
@@ -111,7 +162,7 @@ Die könnt ihr dann allen zeigen!
 
 ---
 
-## 5 — Wie reden wir mit der KI? → `5-wie-reden-wir.mp3`
+## 6 — Wie reden wir mit der KI? → `6-wie-reden-wir.mp3`
 
 Mit der KI zu reden ist super einfach. Wirklich!
 Es ist wie mit einer Freundin zu sprechen.
@@ -134,7 +185,7 @@ Je verrückter die Idee, desto lustiger wird die App!
 
 ---
 
-## 6 — Keine Angst vor Fehlern! → `6-keine-angst.mp3`
+## 7 — Keine Angst vor Fehlern! → `7-keine-angst.mp3`
 
 Fehler machen — das klingt erstmal nicht so toll.
 Aber beim Programmieren gehören Fehler einfach dazu!

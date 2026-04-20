@@ -198,6 +198,7 @@
     .card:nth-child(4) { animation-delay: 0.6s; }
     .card:nth-child(5) { animation-delay: 0.7s; }
     .card:nth-child(6) { animation-delay: 0.8s; }
+    .card:nth-child(7) { animation-delay: 0.9s; }
 
     .card::before {
       content: '';
@@ -412,9 +413,10 @@
     .card:nth-child(1) { --card-color: #a78bfa; }
     .card:nth-child(2) { --card-color: #f472b6; }
     .card:nth-child(3) { --card-color: #34d399; }
-    .card:nth-child(4) { --card-color: #fbbf24; }
-    .card:nth-child(5) { --card-color: #60a5fa; }
-    .card:nth-child(6) { --card-color: #fb923c; }
+    .card:nth-child(4) { --card-color: #f97316; }
+    .card:nth-child(5) { --card-color: #fbbf24; }
+    .card:nth-child(6) { --card-color: #60a5fa; }
+    .card:nth-child(7) { --card-color: #fb923c; }
 
     .card-title { color: var(--card-color); }
 
@@ -580,12 +582,15 @@
       <span class="mini-icon">🧠</span><span class="mini-label">KI</span>
     </button>
     <button class="mini-nav-btn" onclick="focusCard(3)">
-      <span class="mini-icon">📱</span><span class="mini-label">Die App</span>
+      <span class="mini-icon">⚠️</span><span class="mini-label">Vorsicht</span>
     </button>
     <button class="mini-nav-btn" onclick="focusCard(4)">
-      <span class="mini-icon">🎤</span><span class="mini-label">Sprechen</span>
+      <span class="mini-icon">📱</span><span class="mini-label">Die App</span>
     </button>
     <button class="mini-nav-btn" onclick="focusCard(5)">
+      <span class="mini-icon">🎤</span><span class="mini-label">Sprechen</span>
+    </button>
+    <button class="mini-nav-btn" onclick="focusCard(6)">
       <span class="mini-icon">💪</span><span class="mini-label">Fehler</span>
     </button>
   </nav>
@@ -677,7 +682,43 @@
       </div>
     </div>
 
-    <!-- Karte 4: Was ist eine App? -->
+    <!-- Karte 4: KI kann sich irren! -->
+    <div class="card" onclick="toggleCard(this)">
+      <span class="card-icon">⚠️</span>
+      <div class="card-title">Achtung — KI kann sich irren!</div>
+      <div class="card-teaser">KI klingt super schlau, aber manchmal erzählt sie Quatsch. Echt jetzt!</div>
+      <div class="card-expand-hint">🔊 Tippe für mehr — mit Ton!</div>
+      <div class="card-detail">
+        <div class="card-detail-inner">
+          <div class="visual-row">
+            <span class="step-emoji">🤥</span>
+            <span class="step-text">KI erfindet manchmal Sachen — das nennt man <strong>"Halluzinieren"</strong>. Sie klingt dabei total überzeugend, obwohl es komplett falsch ist!</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🧠</span>
+            <span class="step-text">Das liegt daran, dass KI nicht wirklich <strong>versteht</strong> was sie sagt. Sie setzt Wörter zusammen die wahrscheinlich gut passen — wie ein Papagei der Sätze nachplappert</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">📰</span>
+            <span class="step-text">Stellt euch vor: Ihr fragt die KI nach einer berühmten Person und sie erfindet eine Geschichte die es nie gab — mit Datum und allem drum und dran. Total überzeugend, aber frei erfunden!</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🔍</span>
+            <span class="step-text"><strong>Deshalb gilt:</strong> Glaubt nicht alles blind! Wenn euch etwas komisch vorkommt, fragt nach oder prüft es. Genau wie bei allem im Internet</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">💻</span>
+            <span class="step-text">Beim Programmieren ist das einfacher — wir sehen sofort ob der Code funktioniert oder nicht. Wenn die App nicht das macht was wir wollen, hat die KI sich geirrt und wir sagen ihr das!</span>
+          </div>
+          <div class="visual-row">
+            <span class="step-emoji">🧑‍🏫</span>
+            <span class="step-text"><strong>Ihr seid die Chefin, nicht die KI!</strong> Die KI ist ein Werkzeug — wie ein Taschenrechner. Super praktisch, aber <em>ihr</em> entscheidet ob das Ergebnis Sinn macht</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Karte 5: Was ist eine App? -->
     <div class="card" onclick="toggleCard(this)">
       <span class="card-icon">📱</span>
       <div class="card-title">Was bauen wir genau?</div>
@@ -705,7 +746,7 @@
       </div>
     </div>
 
-    <!-- Karte 5: Wie sprechen wir mit der KI? -->
+    <!-- Karte 6: Wie sprechen wir mit der KI? -->
     <div class="card" onclick="toggleCard(this)">
       <span class="card-icon">🎤</span>
       <div class="card-title">Wie reden wir mit der KI?</div>
@@ -733,7 +774,7 @@
       </div>
     </div>
 
-    <!-- Karte 6: Keine Angst vor Fehlern! -->
+    <!-- Karte 7: Keine Angst vor Fehlern! -->
     <div class="card" onclick="toggleCard(this)">
       <span class="card-icon">💪</span>
       <div class="card-title">Keine Angst vor Fehlern!</div>
@@ -783,9 +824,10 @@
     'Was machen wir heute?':    'audio/1-was-machen-wir.mp3',
     'Was ist Vibe Coding?':     'audio/2-vibe-coding.mp3',
     'Was ist eigentlich KI?':   'audio/3-was-ist-ki.mp3',
-    'Was bauen wir genau?':     'audio/4-was-bauen-wir.mp3',
-    'Wie reden wir mit der KI?':'audio/5-wie-reden-wir.mp3',
-    'Keine Angst vor Fehlern!': 'audio/6-keine-angst.mp3'
+    'Achtung — KI kann sich irren!': 'audio/4-ki-halluziniert.mp3',
+    'Was bauen wir genau?':     'audio/5-was-bauen-wir.mp3',
+    'Wie reden wir mit der KI?':'audio/6-wie-reden-wir.mp3',
+    'Keine Angst vor Fehlern!': 'audio/7-keine-angst.mp3'
   };
 
   let currentAudio = null;
