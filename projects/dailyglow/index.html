@@ -455,6 +455,36 @@
       transform: scale(1.05);
     }
 
+    /* Info-Links unten rechts */
+    .info-links {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.4rem;
+      z-index: 100;
+    }
+
+    .info-link {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .info-link:hover {
+      transform: scale(1.15);
+      background: rgba(255,255,255,0.35);
+    }
+
     /* Ergebnis-Seite */
     .result-content {
       background: rgba(255, 255, 255, 0.5);
@@ -949,6 +979,12 @@
     </div>
   </div>
   <div class="copy-toast" id="copy-toast">✅ Link kopiert!</div>
+
+  <!-- Info-Links unten rechts -->
+  <div class="info-links">
+    <a href="making-of.html" class="info-link" title="Making-Of">📖</a>
+    <a href="weitermachen.html" class="info-link" title="Weitermachen">🚀</a>
+  </div>
   <div class="theme-dropdown" id="theme-dropdown">
     <button class="theme-option active" data-theme="kirsch" onclick="setTheme('kirsch')">
       <span class="theme-swatch" style="background: linear-gradient(135deg, #ffecd2, #f8a4c8);"></span> Kirschblüte 🌸
@@ -998,10 +1034,7 @@
       <h1 class="app-title">DailyGlow</h1>
       <p class="app-subtitle">Dein täglicher Motivations-Begleiter</p>
       <button class="start-btn" onclick="goTo('screen-format')">Los geht's</button>
-      <div class="start-links">
-        <a href="making-of.html" class="start-link">📖 Making-Of</a>
-        <a href="weitermachen.html" class="start-link">🚀 Weitermachen</a>
-      </div>
+    </div>
     </div>
 
     <!-- ============ SCREEN 1: Format wählen ============ -->
