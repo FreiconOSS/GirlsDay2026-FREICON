@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔊 DailyGlow — Sound-Vorschau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #ffecd2, #fcb69f, #f8a4c8, #f5c2e7);
+      background-size: 200% 200%;
+      animation: bg 20s ease infinite;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      color: #3a3a5c;
+    }
+    @keyframes bg { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    h1 { text-align: center; font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .hint { text-align: center; color: #888; margin-bottom: 2rem; font-size: 0.95rem; }
+
+    .genre-section {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .genre-section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sound-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.4);
+      border-radius: 14px;
+      margin-bottom: 0.6rem;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .sound-row:last-child { margin-bottom: 0; }
+
+    .play-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #e879a8, #a78bfa);
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(167,139,250,0.3);
+    }
+
+    .play-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(167,139,250,0.4);
+    }
+
+    .play-btn.playing {
+      background: linear-gradient(135deg, #ef5350, #e53935);
+      animation: pulse 1s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(239,83,80,0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(239,83,80,0); }
+    }
+
+    .sound-info {
+      flex: 1;
+    }
+
+    .sound-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .sound-desc {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .sound-label {
+      font-size: 0.7rem;
+      background: rgba(0,0,0,0.06);
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      color: #999;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔊 Sound-Vorschau</h1>
+  <p class="hint">Klickt auf ▶ zum Anhören — sagt mir dann welcher Sound zu welchem Genre passt!</p>
+
+  <div class="genre-section">
+    <h2>🧙 Fantasy</h2>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/fantasy.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Magisches Funkeln</div>
+        <div class="sound-desc">Zauber-Glöckchen, mystischer Schimmer</div>
+      </div>
+      <span class="sound-label">A</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/fantasy2.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Feenstaub-Harfe</div>
+        <div class="sound-desc">Harfen-Glissando mit Sternenfunkeln</div>
+      </div>
+      <span class="sound-label">B</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/fantasy3.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Zaubertrank</div>
+        <div class="sound-desc">Kessel blubbert und brodelt magisch</div>
+      </div>
+      <span class="sound-label">C</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/fantasy4.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Drachenbrüllen</div>
+        <div class="sound-desc">Drache brüllt mit Feueratem</div>
+      </div>
+      <span class="sound-label">D</span>
+    </div>
+  </div>
+
+  <div class="genre-section">
+    <h2>🔍 Krimi</h2>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/krimi.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Spannungs-Stinger</div>
+        <div class="sound-desc">Dramatischer Enthüllungs-Sound</div>
+      </div>
+      <span class="sound-label">A</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/krimi2.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Film-Noir Piano</div>
+        <div class="sound-desc">Mysteriöser Akkord, Schritte im Dunkeln</div>
+      </div>
+      <span class="sound-label">B</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/krimi3.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Dun Dun Duuun!</div>
+        <div class="sound-desc">Dramatische 3-Ton-Folge, Orchester-Stinger</div>
+      </div>
+      <span class="sound-label">C</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/krimi4.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Böses Lachen</div>
+        <div class="sound-desc">Finsteres Schurken-Lachen, bedrohlich</div>
+      </div>
+      <span class="sound-label">D</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/krimi5.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Glas zerbricht</div>
+        <div class="sound-desc">Fensterscheibe splittert dramatisch</div>
+      </div>
+      <span class="sound-label">E</span>
+    </div>
+  </div>
+
+  <div class="genre-section">
+    <h2>🚀 SciFi</h2>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/scifi.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Warp-Antrieb</div>
+        <div class="sound-desc">Raumschiff-Aktivierung, elektronisches Brummen</div>
+      </div>
+      <span class="sound-label">A</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/scifi2.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Luftschleuse</div>
+        <div class="sound-desc">Tür öffnet sich mit hydraulischem Zischen</div>
+      </div>
+      <span class="sound-label">B</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/scifi3.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Laserschwert</div>
+        <div class="sound-desc">Energieklinge aktiviert sich mit Summen</div>
+      </div>
+      <span class="sound-label">C</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/scifi4.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Alien-Signal</div>
+        <div class="sound-desc">Außerirdische Funk-Übertragung, elektronische Zirp-Töne</div>
+      </div>
+      <span class="sound-label">D</span>
+    </div>
+  </div>
+
+  <div class="genre-section">
+    <h2>⛰️ Abenteuer</h2>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/abenteuer.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Bergwind & Vögel</div>
+        <div class="sound-desc">Wind in den Bäumen, Vogelgesang, Natur</div>
+      </div>
+      <span class="sound-label">A</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/abenteuer2.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Meereswellen</div>
+        <div class="sound-desc">Wellen am Strand, Möwen, Tropeninsel</div>
+      </div>
+      <span class="sound-label">B</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/abenteuer3.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Schatztruhe</div>
+        <div class="sound-desc">Holzdeckel knarrt, Goldmünzen klimpern</div>
+      </div>
+      <span class="sound-label">C</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/abenteuer4.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Pferdegalopp</div>
+        <div class="sound-desc">Hufe donnern über den Weg, epischer Ritt</div>
+      </div>
+      <span class="sound-label">D</span>
+    </div>
+  </div>
+
+  <div class="genre-section">
+    <h2>😂 Lustig</h2>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/lustig.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Cartoon Boing</div>
+        <div class="sound-desc">Lustiger Feder-Sprung, alberner Pop</div>
+      </div>
+      <span class="sound-label">A</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/lustig2.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Quietsch-Hupe</div>
+        <div class="sound-desc">Federgeräusch, alberne Hupe, Comedy</div>
+      </div>
+      <span class="sound-label">B</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/lustig3.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Fröhliches Lachen</div>
+        <div class="sound-desc">Kichern und Lachen, fröhlich und ansteckend</div>
+      </div>
+      <span class="sound-label">C</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/lustig4.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Traurige Trompete</div>
+        <div class="sound-desc">Wah wah waaah — Fail-Sound!</div>
+      </div>
+      <span class="sound-label">D</span>
+    </div>
+    <div class="sound-row">
+      <button class="play-btn" onclick="playSound(this, 'audio/lustig5.mp3')">▶</button>
+      <div class="sound-info">
+        <div class="sound-name">Furzkissen</div>
+        <div class="sound-desc">Klassischer Streich-Sound 😂</div>
+      </div>
+      <span class="sound-label">E</span>
+    </div>
+  </div>
+
+  <script>
+    let currentAudio = null;
+    let currentBtn = null;
+
+    function playSound(btn, src) {
+      // Aktuellen Sound stoppen
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        if (currentBtn) currentBtn.classList.remove('playing');
+        if (currentBtn) currentBtn.textContent = '▶';
+
+        // Gleichen Button nochmal gedrückt = nur stoppen
+        if (currentBtn === btn) {
+          currentAudio = null;
+          currentBtn = null;
+          return;
+        }
+      }
+
+      // Neuen Sound abspielen
+      currentAudio = new Audio(src);
+      currentBtn = btn;
+      btn.classList.add('playing');
+      btn.textContent = '⏹';
+
+      currentAudio.play();
+      currentAudio.onended = () => {
+        btn.classList.remove('playing');
+        btn.textContent = '▶';
+        currentAudio = null;
+        currentBtn = null;
+      };
+    }
+  </script>
+</body>
+</html>

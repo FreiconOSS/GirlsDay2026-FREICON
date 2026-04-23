@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔊 DailyGlow Soundboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #ffecd2, #fcb69f, #f8a4c8, #f5c2e7);
+      background-size: 200% 200%;
+      animation: bg 20s ease infinite;
+      min-height: 100vh;
+      padding: 1.5rem 1rem 3rem;
+      color: #3a3a5c;
+    }
+    @keyframes bg { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    .back-link {
+      display: inline-block;
+      text-decoration: none;
+      color: #3a3a5c;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 1; }
+
+    h1 { text-align: center; font-size: 1.8rem; margin-bottom: 0.2rem; }
+    .hint { text-align: center; color: #888; margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 1.5rem 0 0.8rem;
+      color: #5a5a7c;
+    }
+
+    .sound-grid {
+      max-width: 500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+    }
+
+    .sound-btn {
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 18px;
+      padding: 1rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .sound-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(167,139,250,0.25);
+    }
+
+    .sound-btn:active {
+      transform: scale(0.92);
+    }
+
+    .sound-btn.playing {
+      border-color: #a78bfa;
+      background: rgba(167,139,250,0.2);
+      box-shadow: 0 0 20px rgba(167,139,250,0.35);
+      animation: pulseGlow 0.8s ease infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 10px rgba(167,139,250,0.3); }
+      50% { box-shadow: 0 0 25px rgba(167,139,250,0.5); }
+    }
+
+    .sound-emoji {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .sound-name {
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* Genre-spezifische Farben */
+    .genre-fantasy .sound-btn.playing { border-color: #c084fc; background: rgba(192,132,252,0.2); }
+    .genre-krimi .sound-btn.playing { border-color: #64748b; background: rgba(100,116,139,0.2); }
+    .genre-scifi .sound-btn.playing { border-color: #38bdf8; background: rgba(56,189,248,0.2); }
+    .genre-abenteuer .sound-btn.playing { border-color: #34d399; background: rgba(52,211,153,0.2); }
+    .genre-lustig .sound-btn.playing { border-color: #fbbf24; background: rgba(251,191,36,0.2); }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-link">← Zurück zur App</a>
+
+  <h1>🔊 Soundboard</h1>
+  <p class="hint">Tipp auf die Kacheln und mach Krach! 🎶</p>
+
+  <!-- Blob -->
+  <div class="section-title">💧 Blubb</div>
+  <div class="sound-grid" style="grid-template-columns: 1fr;">
+    <div style="max-width: 160px; margin: 0 auto;">
+      <div class="sound-btn" onclick="play(this, 'audio/blob1.mp3')">
+        <span class="sound-emoji">💧</span>
+        <span class="sound-name">Blubb!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fantasy -->
+  <div class="section-title">🧙 Fantasy</div>
+  <div class="sound-grid genre-fantasy">
+    <div class="sound-btn" onclick="play(this, 'audio/fantasy.mp3')">
+      <span class="sound-emoji">✨</span>
+      <span class="sound-name">Funkeln</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/fantasy2.mp3')">
+      <span class="sound-emoji">🧚</span>
+      <span class="sound-name">Feenstaub</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/fantasy3.mp3')">
+      <span class="sound-emoji">🧪</span>
+      <span class="sound-name">Zaubertrank</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/fantasy4.mp3')">
+      <span class="sound-emoji">🐉</span>
+      <span class="sound-name">Drache</span>
+    </div>
+  </div>
+
+  <!-- Krimi -->
+  <div class="section-title">🔍 Krimi</div>
+  <div class="sound-grid genre-krimi">
+    <div class="sound-btn" onclick="play(this, 'audio/krimi.mp3')">
+      <span class="sound-emoji">😱</span>
+      <span class="sound-name">Spannung</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/krimi2.mp3')">
+      <span class="sound-emoji">🎹</span>
+      <span class="sound-name">Film Noir</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/krimi3.mp3')">
+      <span class="sound-emoji">🎵</span>
+      <span class="sound-name">Dun Dun Dun</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/krimi4.mp3')">
+      <span class="sound-emoji">😈</span>
+      <span class="sound-name">Böses Lachen</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/krimi5.mp3')">
+      <span class="sound-emoji">💥</span>
+      <span class="sound-name">Glas</span>
+    </div>
+  </div>
+
+  <!-- SciFi -->
+  <div class="section-title">🚀 SciFi</div>
+  <div class="sound-grid genre-scifi">
+    <div class="sound-btn" onclick="play(this, 'audio/scifi.mp3')">
+      <span class="sound-emoji">🛸</span>
+      <span class="sound-name">Warp</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/scifi2.mp3')">
+      <span class="sound-emoji">🚪</span>
+      <span class="sound-name">Schleuse</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/scifi3.mp3')">
+      <span class="sound-emoji">⚔️</span>
+      <span class="sound-name">Laser</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/scifi4.mp3')">
+      <span class="sound-emoji">👽</span>
+      <span class="sound-name">Alien</span>
+    </div>
+  </div>
+
+  <!-- Abenteuer -->
+  <div class="section-title">⛰️ Abenteuer</div>
+  <div class="sound-grid genre-abenteuer">
+    <div class="sound-btn" onclick="play(this, 'audio/abenteuer.mp3')">
+      <span class="sound-emoji">🌲</span>
+      <span class="sound-name">Wald</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/abenteuer2.mp3')">
+      <span class="sound-emoji">🌊</span>
+      <span class="sound-name">Meer</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/abenteuer3.mp3')">
+      <span class="sound-emoji">💰</span>
+      <span class="sound-name">Schatz</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/abenteuer4.mp3')">
+      <span class="sound-emoji">🐴</span>
+      <span class="sound-name">Galopp</span>
+    </div>
+  </div>
+
+  <!-- Lustig -->
+  <div class="section-title">😂 Lustig</div>
+  <div class="sound-grid genre-lustig">
+    <div class="sound-btn" onclick="play(this, 'audio/lustig.mp3')">
+      <span class="sound-emoji">🤪</span>
+      <span class="sound-name">Boing</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/lustig2.mp3')">
+      <span class="sound-emoji">📯</span>
+      <span class="sound-name">Hupe</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/lustig3.mp3')">
+      <span class="sound-emoji">😆</span>
+      <span class="sound-name">Lachen</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/lustig4.mp3')">
+      <span class="sound-emoji">🎺</span>
+      <span class="sound-name">Wah Wah</span>
+    </div>
+    <div class="sound-btn" onclick="play(this, 'audio/lustig5.mp3')">
+      <span class="sound-emoji">💨</span>
+      <span class="sound-name">Pfffft</span>
+    </div>
+  </div>
+
+  <script>
+    let currentAudio = null;
+    let currentBtn = null;
+
+    function play(btn, src) {
+      // Laufenden Sound stoppen
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        if (currentBtn) currentBtn.classList.remove('playing');
+      }
+
+      // Gleichen Button = nur stoppen
+      if (currentBtn === btn) {
+        currentAudio = null;
+        currentBtn = null;
+        return;
+      }
+
+      // Neuen Sound abspielen
+      currentAudio = new Audio(src);
+      currentBtn = btn;
+      btn.classList.add('playing');
+
+      currentAudio.play().catch(() => {});
+      currentAudio.onended = () => {
+        btn.classList.remove('playing');
+        currentAudio = null;
+        currentBtn = null;
+      };
+    }
+  </script>
+</body>
+</html>

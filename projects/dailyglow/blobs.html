@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💧 Blob-Sound Vorschau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #e0f2fe, #c4b5fd, #f0abfc, #fde68a);
+      background-size: 200% 200%;
+      animation: bg 20s ease infinite;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      color: #3a3a5c;
+    }
+    @keyframes bg { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    h1 { text-align: center; font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .hint { text-align: center; color: #666; margin-bottom: 2rem; font-size: 0.95rem; }
+
+    .blob-grid {
+      max-width: 500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .blob-card {
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .blob-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(167,139,250,0.3);
+    }
+
+    .blob-card:active {
+      transform: scale(0.95);
+    }
+
+    .blob-card.playing {
+      border-color: #a78bfa;
+      box-shadow: 0 0 20px rgba(167,139,250,0.4);
+    }
+
+    .blob-emoji {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .blob-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .blob-desc {
+      font-size: 0.75rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💧 Blob-Sounds</h1>
+  <p class="hint">Das sind die Klick-Sounds für die Zwischenschritte. Einfach antippen!</p>
+
+  <div class="blob-grid">
+    <div class="blob-card" onclick="playBlob(this, 'audio/blob1.mp3')">
+      <span class="blob-emoji">💧</span>
+      <div class="blob-name">Blubb</div>
+      <div class="blob-desc">Sanfter Blasen-Pop, Wassertropfen</div>
+    </div>
+
+    <div class="blob-card" onclick="playBlob(this, 'audio/blob2.mp3')">
+      <span class="blob-emoji">🔔</span>
+      <div class="blob-name">Kling</div>
+      <div class="blob-desc">Magischer Glöckchen-Ton, sanft</div>
+    </div>
+
+    <div class="blob-card" onclick="playBlob(this, 'audio/blob3.mp3')">
+      <span class="blob-emoji">🎵</span>
+      <div class="blob-name">Pluck</div>
+      <div class="blob-desc">Harfen-Zupfer, warm und gemütlich</div>
+    </div>
+
+    <div class="blob-card" onclick="playBlob(this, 'audio/blob4.mp3')">
+      <span class="blob-emoji">🌊</span>
+      <div class="blob-name">Swoosh</div>
+      <div class="blob-desc">Sanfter Windhauch, Seitenübergang</div>
+    </div>
+  </div>
+
+  <script>
+    let currentAudio = null;
+    let currentCard = null;
+
+    function playBlob(card, src) {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        if (currentCard) currentCard.classList.remove('playing');
+      }
+
+      currentAudio = new Audio(src);
+      currentCard = card;
+      card.classList.add('playing');
+
+      currentAudio.play();
+      currentAudio.onended = () => {
+        card.classList.remove('playing');
+        currentAudio = null;
+        currentCard = null;
+      };
+    }
+  </script>
+</body>
+</html>

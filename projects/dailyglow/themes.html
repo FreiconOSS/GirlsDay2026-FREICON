@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 DailyGlow — Farbthemen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f0f5;
+      padding: 2rem 1rem;
+      color: #3a3a5c;
+    }
+
+    h1 { text-align: center; font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .hint { text-align: center; color: #999; margin-bottom: 2rem; font-size: 0.95rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .preview {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .preview:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.15);
+    }
+
+    .preview-screen {
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background-size: 400% 400%;
+      animation: gradShift 10s ease infinite;
+    }
+
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .preview .emoji-big {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 0.8rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .preview .title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+    }
+
+    .preview .subtitle {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .preview .btn {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    .preview-label {
+      background: rgba(0,0,0,0.65);
+      color: white;
+      text-align: center;
+      padding: 0.7rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* Sparkle-Punkte */
+    .sparkle-dot {
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.6);
+      animation: sparklePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes sparklePulse {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 0.8; transform: scale(1.5); }
+    }
+
+    /* ====== THEMES ====== */
+
+    /* 1 — Kirschblüte (aktuell) */
+    .t-kirsch .preview-screen { background: linear-gradient(145deg, #ffecd2, #fcb69f, #f8a4c8, #f5c2e7); }
+    .t-kirsch .title { color: #b8860b; }
+    .t-kirsch .subtitle { color: rgba(139,90,20,0.7); }
+    .t-kirsch .btn { background: rgba(255,255,255,0.4); color: #b8860b; border: 2px solid rgba(184,134,11,0.3); backdrop-filter: blur(10px); }
+
+    /* 2 — Sonnenschein */
+    .t-sonne .preview-screen { background: linear-gradient(145deg, #fff9c4, #ffe082, #ffcc02, #ffa726, #fff176); }
+    .t-sonne .title { color: #5d4037; }
+    .t-sonne .subtitle { color: rgba(93,64,55,0.7); }
+    .t-sonne .btn { background: rgba(255,255,255,0.45); color: #5d4037; border: 2px solid rgba(93,64,55,0.2); backdrop-filter: blur(10px); }
+
+    /* 3 — Ozean */
+    .t-ozean .preview-screen { background: linear-gradient(145deg, #e0f7fa, #80deea, #4dd0e1, #00acc1, #b2ebf2); }
+    .t-ozean .title { color: white; text-shadow: 0 2px 15px rgba(0,80,100,0.3); }
+    .t-ozean .subtitle { color: rgba(255,255,255,0.85); }
+    .t-ozean .btn { background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
+
+    /* 4 — Waldgrün */
+    .t-wald .preview-screen { background: linear-gradient(145deg, #c8e6c9, #81c784, #66bb6a, #a5d6a7, #dcedc8); }
+    .t-wald .title { color: #1b5e20; }
+    .t-wald .subtitle { color: rgba(27,94,32,0.6); }
+    .t-wald .btn { background: rgba(255,255,255,0.4); color: #1b5e20; border: 2px solid rgba(27,94,32,0.2); backdrop-filter: blur(10px); }
+
+    /* 5 — Lavendel */
+    .t-lavendel .preview-screen { background: linear-gradient(145deg, #e1bee7, #ce93d8, #ba68c8, #d1c4e9, #ede7f6); }
+    .t-lavendel .title { color: white; text-shadow: 0 2px 15px rgba(80,30,120,0.25); }
+    .t-lavendel .subtitle { color: rgba(255,255,255,0.85); }
+    .t-lavendel .btn { background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
+
+    /* 6 — Mitternacht */
+    .t-nacht .preview-screen { background: linear-gradient(145deg, #1a237e, #283593, #3949ab, #5c6bc0, #3f51b5); }
+    .t-nacht .title { color: #ffd54f; }
+    .t-nacht .subtitle { color: rgba(255,213,79,0.7); }
+    .t-nacht .btn { background: rgba(255,213,79,0.2); color: #ffd54f; border: 2px solid rgba(255,213,79,0.4); backdrop-filter: blur(10px); }
+
+    /* 7 — Pfirsich-Mint */
+    .t-pfirsich .preview-screen { background: linear-gradient(145deg, #ffe0b2, #ffcc80, #80cbc4, #b2dfdb, #ffccbc); }
+    .t-pfirsich .title { color: #4e342e; }
+    .t-pfirsich .subtitle { color: rgba(78,52,46,0.6); }
+    .t-pfirsich .btn { background: rgba(255,255,255,0.45); color: #4e342e; border: 2px solid rgba(78,52,46,0.15); backdrop-filter: blur(10px); }
+
+    /* 8 — Flamingo */
+    .t-flamingo .preview-screen { background: linear-gradient(145deg, #f48fb1, #f06292, #ec407a, #f8bbd0, #fce4ec); }
+    .t-flamingo .title { color: white; text-shadow: 0 2px 15px rgba(200,50,100,0.3); }
+    .t-flamingo .subtitle { color: rgba(255,255,255,0.85); }
+    .t-flamingo .btn { background: rgba(255,255,255,0.3); color: white; border: 2px solid rgba(255,255,255,0.5); backdrop-filter: blur(10px); }
+
+    /* 9 — Regenbogen */
+    .t-rainbow .preview-screen { background: linear-gradient(135deg, #ffb3ba, #ffdfba, #ffffba, #baffc9, #bae1ff, #d4baff); }
+    .t-rainbow .title { color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+    .t-rainbow .subtitle { color: rgba(255,255,255,0.9); }
+    .t-rainbow .btn { background: rgba(255,255,255,0.4); color: #555; border: 2px solid rgba(255,255,255,0.6); backdrop-filter: blur(10px); }
+
+    /* 10 — Feuer */
+    .t-feuer .preview-screen { background: linear-gradient(145deg, #ff8a65, #ff7043, #f4511e, #ffab91, #ffccbc); }
+    .t-feuer .title { color: #fff8e1; text-shadow: 0 2px 15px rgba(200,50,0,0.3); }
+    .t-feuer .subtitle { color: rgba(255,248,225,0.8); }
+    .t-feuer .btn { background: rgba(255,248,225,0.25); color: #fff8e1; border: 2px solid rgba(255,248,225,0.4); backdrop-filter: blur(10px); }
+
+    /* 11 — Galaxie */
+    .t-galaxie .preview-screen { background: linear-gradient(145deg, #311b92, #4527a0, #7c4dff, #b388ff, #512da8); }
+    .t-galaxie .title { color: #ea80fc; }
+    .t-galaxie .subtitle { color: rgba(234,128,252,0.7); }
+    .t-galaxie .btn { background: rgba(234,128,252,0.15); color: #ea80fc; border: 2px solid rgba(234,128,252,0.3); backdrop-filter: blur(10px); }
+
+    /* 12 — Erde */
+    .t-erde .preview-screen { background: linear-gradient(145deg, #d7ccc8, #bcaaa4, #a1887f, #efebe9, #c8b4a0); }
+    .t-erde .title { color: #3e2723; }
+    .t-erde .subtitle { color: rgba(62,39,35,0.6); }
+    .t-erde .btn { background: rgba(255,255,255,0.4); color: #3e2723; border: 2px solid rgba(62,39,35,0.15); backdrop-filter: blur(10px); }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 Welches Farbthema gefällt euch?</h1>
+  <p class="hint">Man kann später in der App zwischen den Designs wechseln! Sagt mir eure Favoriten 😊</p>
+
+  <div class="grid">
+
+    <div class="preview t-kirsch">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">1 — Kirschblüte 🌸 (aktuell)</div>
+    </div>
+
+    <div class="preview t-sonne">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">2 — Sonnenschein ☀️</div>
+    </div>
+
+    <div class="preview t-ozean">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">3 — Ozean 🌊</div>
+    </div>
+
+    <div class="preview t-wald">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">4 — Waldgrün 🌿</div>
+    </div>
+
+    <div class="preview t-lavendel">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">5 — Lavendel 💜</div>
+    </div>
+
+    <div class="preview t-nacht">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">6 — Mitternacht 🌙</div>
+    </div>
+
+    <div class="preview t-pfirsich">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">7 — Pfirsich-Mint 🍑🌿</div>
+    </div>
+
+    <div class="preview t-flamingo">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">8 — Flamingo 🦩</div>
+    </div>
+
+    <div class="preview t-rainbow">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">9 — Regenbogen 🌈</div>
+    </div>
+
+    <div class="preview t-feuer">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">10 — Feuer 🔥</div>
+    </div>
+
+    <div class="preview t-galaxie">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">11 — Galaxie 🌌</div>
+    </div>
+
+    <div class="preview t-erde">
+      <div class="preview-screen">
+        <span class="emoji-big">🌟</span>
+        <div class="title">DailyGlow</div>
+        <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+        <div class="btn">Los geht's</div>
+      </div>
+      <div class="preview-label">12 — Erde 🌰</div>
+    </div>
+
+  </div>
+
+</body>
+</html>
