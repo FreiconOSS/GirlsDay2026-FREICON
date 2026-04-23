@@ -61,7 +61,9 @@
 
     /* Container */
     .container {
-      width: min(500px, 92vw);
+      width: 92vw;
+      max-width: 550px;
+      margin: 0 auto;
       position: relative;
     }
 
@@ -103,6 +105,7 @@
       padding: 2.5rem 2rem;
       box-shadow: var(--shadow-soft);
       width: 100%;
+      max-width: 550px;
     }
 
     /* Titel */
@@ -1306,7 +1309,7 @@
         <div class="result-content" id="result-text"></div>
         <div class="result-actions">
           <button class="btn-tts" id="btn-tts" onclick="playTTS()" style="display:none">🔊 Vorlesen</button>
-          <button class="btn-again" onclick="resetApp()">🔄 Nochmal</button>
+          <button class="btn-again" onclick="resetApp()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Nochmal</button>
         </div>
       </div>
     </div>
@@ -1785,6 +1788,220 @@
       });
       toggleShare();
     }
+
+    /* 🥚 Easter Egg: Sternschnuppen & Tierchen */
+    (function() {
+      const critters = [
+        // Sterne & Magie
+        { emoji: '🌟', type: 'star' },
+        { emoji: '⭐', type: 'star' },
+        { emoji: '✨', type: 'star' },
+        { emoji: '💫', type: 'star' },
+        { emoji: '🌙', type: 'star' },
+        { emoji: '☄️', type: 'star' },
+        { emoji: '🪄', type: 'star' },
+        // Flieger
+        { emoji: '🦋', type: 'star' },
+        { emoji: '🐝', type: 'star' },
+        { emoji: '🪲', type: 'star' },
+        { emoji: '🕊️', type: 'star' },
+        { emoji: '🦅', type: 'star' },
+        { emoji: '🚀', type: 'star' },
+        { emoji: '🛸', type: 'star' },
+        { emoji: '🎈', type: 'star' },
+        // Tierchen
+        { emoji: '🐻', type: 'animal' },
+        { emoji: '🦊', type: 'animal' },
+        { emoji: '🐱', type: 'animal' },
+        { emoji: '🦉', type: 'animal' },
+        { emoji: '🐰', type: 'animal' },
+        { emoji: '🐼', type: 'animal' },
+        { emoji: '🦄', type: 'animal' },
+        { emoji: '🐸', type: 'animal' },
+        { emoji: '🐧', type: 'animal' },
+        { emoji: '🦎', type: 'animal' },
+        { emoji: '🐢', type: 'animal' },
+        { emoji: '🦔', type: 'animal' },
+        { emoji: '🐨', type: 'animal' },
+        { emoji: '🐙', type: 'animal' },
+        { emoji: '🦩', type: 'animal' },
+        { emoji: '🐞', type: 'animal' },
+        { emoji: '🦜', type: 'animal' },
+        { emoji: '🐶', type: 'animal' },
+      ];
+
+      let lastSpawn = 0;
+
+      function spawnCritter(force) {
+        const now = Date.now();
+        if (!force && now - lastSpawn < 60000) return;
+        if (!force && Math.random() > 0.15) {
+          scheduleNext();
+          return;
+        }
+        lastSpawn = now;
+
+        const c = critters[Math.floor(Math.random() * critters.length)];
+        const el = document.createElement('div');
+        el.textContent = c.emoji;
+        el.style.cssText = `
+          position: fixed;
+          font-size: ${14 + Math.random() * 10}px;
+          z-index: 0;
+          pointer-events: auto;
+          cursor: pointer;
+          user-select: none;
+          opacity: 0;
+          transition: opacity 0.5s;
+          filter: blur(0.3px);
+        `;
+
+        const fromLeft = Math.random() > 0.5;
+        const duration = 12000 + Math.random() * 6000;
+
+        // Regenbogen-Bahn: unten links → oben mitte → unten rechts (oder umgekehrt)
+        const W = window.innerWidth;
+        const H = window.innerHeight;
+        const margin = 30;
+        const startX = fromLeft ? -margin : W + margin;
+        const endX = fromLeft ? W + margin : -margin;
+        const startY = H + margin;
+        const topY = 30 + Math.random() * 20; // wie hoch der Bogen geht (px vom oberen Rand)
+        const centerX = W / 2;
+
+        el.style.top = startY + 'px';
+        el.style.left = startX + 'px';
+
+        document.body.appendChild(el);
+        requestAnimationFrame(() => el.style.opacity = '0.4');
+
+        let clicked = false;
+        el.addEventListener('click', (e) => {
+          if (clicked) return;
+          clicked = true;
+          e.stopPropagation();
+          miniConfetti(e.clientX, e.clientY);
+          el.style.transition = 'transform 0.3s, opacity 0.3s';
+          el.style.transform += ' scale(1.8)';
+          el.style.opacity = '0';
+          setTimeout(() => el.remove(), 400);
+        });
+        el.addEventListener('touchstart', (e) => {
+          if (clicked) return;
+          clicked = true;
+          e.stopPropagation();
+          const t = e.touches[0];
+          miniConfetti(t.clientX, t.clientY);
+          el.style.transition = 'transform 0.3s, opacity 0.3s';
+          el.style.transform += ' scale(1.8)';
+          el.style.opacity = '0';
+          setTimeout(() => el.remove(), 400);
+        }, { passive: true });
+
+        const startTime = performance.now();
+        let paused = false;
+        let hasPaused = false;
+        const pauseAt = 0.45 + Math.random() * 0.1;
+        let pauseDuration = 0;
+
+        function animate(time) {
+          if (clicked) return;
+          let elapsed = time - startTime - pauseDuration;
+          let progress = elapsed / duration;
+          if (progress >= 1) { el.remove(); scheduleNext(); return; }
+
+          if (!paused && !hasPaused && progress >= pauseAt) {
+            paused = true;
+            hasPaused = true;
+            el.style.opacity = '0.6';
+            el.style.transition = 'transform 0.15s';
+            el.style.transform = 'scale(1.2)';
+            const pauseStart = performance.now();
+            // Gesamte Pause: max ~2.5 Sekunden
+            setTimeout(() => {
+              el.style.transform = 'scale(1.2) scaleX(-1)';
+              setTimeout(() => {
+                el.style.transform = 'scale(1.2) scaleX(1)';
+                setTimeout(() => {
+                  el.style.transform = 'scale(1)';
+                  el.style.opacity = '0.4';
+                  el.style.transition = 'opacity 0.3s';
+                  pauseDuration += performance.now() - pauseStart;
+                  paused = false;
+                }, 400);
+              }, 400);
+            }, 600);
+          }
+
+          if (!paused) {
+            // Elliptischer Regenbogen-Bogen
+            const angle = fromLeft
+              ? Math.PI + progress * Math.PI  // links→oben→rechts (π → 2π)
+              : progress * Math.PI;            // rechts→oben→links (0 → π) — nein, andersrum
+            // Parametrisch: t von 0→1, Halbkreis
+            const t = progress;
+            const rx = (W / 2) + margin; // horizontaler Radius
+            const ry = (H / 2) + margin; // vertikaler Radius
+            
+            let x, y;
+            if (fromLeft) {
+              // Links unten → Oben → Rechts unten
+              x = centerX - rx * Math.cos(t * Math.PI);
+              y = (H / 2 + ry/2) - ry * Math.sin(t * Math.PI);
+            } else {
+              // Rechts unten → Oben → Links unten
+              x = centerX + rx * Math.cos(t * Math.PI);
+              y = (H / 2 + ry/2) - ry * Math.sin(t * Math.PI);
+            }
+            
+            // Sanftes Wackeln
+            const wobble = Math.sin(t * Math.PI * 6) * 5;
+            
+            el.style.left = x + 'px';
+            el.style.top = (y + wobble) + 'px';
+          }
+          requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+        setTimeout(() => { if (!clicked) scheduleNext(); }, duration + 3000);
+      }
+
+      function miniConfetti(x, y) {
+        const colors = ['#ffd700','#ff6b9d','#c084fc','#34d399','#60a5fa','#fb923c'];
+        for (let i = 0; i < 25; i++) {
+          const dot = document.createElement('div');
+          const size = 4 + Math.random() * 4;
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 40 + Math.random() * 80;
+          const dx = Math.cos(angle) * dist;
+          const dy = Math.sin(angle) * dist - 20;
+          dot.style.cssText = `
+            position:fixed; left:${x}px; top:${y}px;
+            width:${size}px; height:${size}px;
+            background:${colors[Math.floor(Math.random()*colors.length)]};
+            border-radius:${Math.random()>0.5?'50%':'2px'};
+            z-index:9999; pointer-events:none;
+            transition: all ${0.5+Math.random()*0.5}s cubic-bezier(.25,.46,.45,.94);
+            opacity:1;
+          `;
+          document.body.appendChild(dot);
+          requestAnimationFrame(() => {
+            dot.style.left = (x + dx) + 'px';
+            dot.style.top = (y + dy) + 'px';
+            dot.style.opacity = '0';
+            dot.style.transform = `rotate(${Math.random()*360}deg)`;
+          });
+          setTimeout(() => dot.remove(), 1200);
+        }
+      }
+
+      function scheduleNext() {
+        const delay = 45000 + Math.random() * 90000;
+        setTimeout(spawnCritter, delay);
+      }
+
+      setTimeout(spawnCritter, 20000 + Math.random() * 40000);
+    })();
   </script>
 </body>
 </html>
