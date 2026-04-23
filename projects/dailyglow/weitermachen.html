@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚀 So machst du weiter!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(-45deg, #0f0f1a, #1a1028, #0f1a2e, #1a0f28);
+      background-size: 400% 400%;
+      animation: bg 15s ease infinite;
+      min-height: 100vh;
+      padding: 1.5rem 1rem 4rem;
+      color: #e0e0ff;
+    }
+    @keyframes bg { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+    .container { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .back-link {
+      display: inline-block;
+      text-decoration: none;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: white; }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .hero-emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+    h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #34d399, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.3rem;
+    }
+    .hero-sub {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .motivation-box {
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.15);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.75);
+    }
+    .motivation-box strong { color: #34d399; }
+
+    /* Section Headers */
+    .section-header {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin: 2.5rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+      color: white;
+    }
+
+    .card .difficulty {
+      font-size: 0.7rem;
+      color: #a78bfa;
+      margin-bottom: 0.8rem;
+    }
+
+    .card p, .card li {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    .card ol, .card ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    .card li { margin-bottom: 0.4rem; }
+
+    .card a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+    .card a:hover { text-decoration: underline; }
+
+    /* Terminal-Blöcke */
+    .terminal {
+      background: #0d1117;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      margin: 0.8rem 0;
+      overflow: hidden;
+    }
+
+    .terminal-header {
+      background: rgba(255,255,255,0.05);
+      padding: 0.4rem 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.65rem;
+      color: #888;
+    }
+
+    .terminal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .terminal-body {
+      padding: 0.8rem 1rem;
+      font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: #c9d1d9;
+      overflow-x: auto;
+    }
+
+    .terminal-body .prompt { color: #34d399; }
+    .terminal-body .comment { color: #6b7280; }
+    .terminal-body .cmd { color: #79c0ff; }
+
+    .copy-btn {
+      float: right;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #888;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+
+    /* OS-Tabs */
+    .os-tabs {
+      display: flex;
+      gap: 0.3rem;
+      margin: 0.8rem 0 0.5rem;
+    }
+
+    .os-tab {
+      padding: 0.3rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .os-tab:hover { background: rgba(255,255,255,0.08); color: white; }
+    .os-tab.active {
+      background: rgba(96,165,250,0.15);
+      border-color: rgba(96,165,250,0.3);
+      color: #60a5fa;
+    }
+
+    .os-content { display: none; }
+    .os-content.active { display: block; }
+
+    /* Wichtig-Box */
+    .important {
+      background: rgba(251,191,36,0.08);
+      border: 1px solid rgba(251,191,36,0.15);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      margin: 0.8rem 0;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .important strong { color: #fbbf24; }
+
+    /* Tipp-Box */
+    .tip {
+      background: rgba(167,139,250,0.08);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      margin: 0.8rem 0;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .tip strong { color: #c4b5fd; }
+
+    .footer-msg {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 2rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-msg h2 { color: #34d399; margin-bottom: 0.5rem; }
+    .footer-msg p { color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.7; }
+
+    .star { position: fixed; color: rgba(255,255,255,0.5); pointer-events: none; animation: twinkle 3s ease-in-out infinite; z-index: 0; }
+    @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(0.8)} 50%{opacity:0.8;transform:scale(1.2)} }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Zurück zur App</a>
+
+  <div class="hero">
+    <div class="hero-emoji">🚀</div>
+    <h1>So machst du weiter!</h1>
+    <p class="hero-sub">Dein Guide zum Weiterprogrammieren nach dem Workshop</p>
+  </div>
+
+  <div class="motivation-box">
+    <strong>Du hast heute eine echte App gebaut</strong> — mit echtem Code, echtem Design und echten Sound-Effekten.
+    Das können die meisten Erwachsenen nicht! 🎉<br><br>
+    Hier zeigen wir dir Schritt für Schritt wie du <strong>zuhause weitermachen</strong> kannst.
+    Man kann dabei <strong>nichts kaputt machen</strong>. Der Computer explodiert nicht. Versprochen. 😄
+  </div>
+
+  <!-- ==================== TEIL 1: SCHNELL LOSLEGEN ==================== -->
+  <div class="section-header">⚡ Schnell loslegen</div>
+
+  <div class="card">
+    <h3>🌐 Weg 1: KI im Browser (ohne Installation)</h3>
+    <div class="difficulty">⭐ Super einfach — geht sofort</div>
+    <p>Du brauchst nur einen Browser und eine der beiden KI-Websites:</p>
+    <ol>
+      <li>Gehe auf <a href="https://chatgpt.com" target="_blank">chatgpt.com</a> oder <a href="https://claude.ai" target="_blank">claude.ai</a> (kostenlos!)</li>
+      <li>Sag der KI zum Beispiel:<br>
+        <em>„Ich möchte eine Browser-App bauen. Mach mir eine HTML-Datei mit einem Spiel wo man Punkte sammelt."</em></li>
+      <li>Die KI schreibt den Code für dich</li>
+      <li>Kopiere den Code in einen Texteditor (z.B. Notepad)</li>
+      <li>Speichere die Datei als <code>index.html</code></li>
+      <li>Doppelklick auf die Datei — sie öffnet sich im Browser! 🎉</li>
+    </ol>
+    <div class="tip">
+      💡 <strong>Tipp:</strong> Je genauer du der KI sagst was du willst, desto besser wird das Ergebnis!
+      Statt „mach ein Spiel" sag lieber „mach ein Jump-and-Run Spiel mit einer Katze die über Hindernisse springt".
+    </div>
+  </div>
+
+  <!-- ==================== TEIL 2: EIGENE KOPIE DES PROJEKTS ==================== -->
+  <div class="section-header">📋 Eigene Kopie des Projekts erstellen</div>
+
+  <div class="card">
+    <h3>🍴 Was ist ein „Fork"?</h3>
+    <div class="difficulty">⭐⭐ Ein bisschen Übung nötig</div>
+    <p>
+      Ein Fork ist eine <strong>eigene Kopie</strong> unseres Projekts. Du bekommst alles — den ganzen Code,
+      alle Bilder, alle Sounds. Und du kannst daran ändern was du willst, ohne dass unser Original kaputt geht!
+    </p>
+    <p>Stell es dir so vor: Du kopierst ein Rezeptbuch und darfst in deiner Kopie eigene Rezepte ergänzen. 📖</p>
+  </div>
+
+  <div class="card">
+    <h3>Schritt 1: GitHub-Account erstellen</h3>
+    <ol>
+      <li>Gehe auf <a href="https://github.com" target="_blank">github.com</a></li>
+      <li>Klicke auf <strong>„Sign up"</strong></li>
+      <li>E-Mail eingeben, Passwort wählen, Username ausdenken</li>
+      <li>Fertig! Du hast jetzt einen GitHub-Account! 🎉</li>
+    </ol>
+    <div class="tip">
+      💡 <strong>Kostenlos für Schüler!</strong> GitHub ist kostenlos. Es gibt sogar ein
+      <a href="https://education.github.com/pack" target="_blank">GitHub Student Pack</a> mit Extras!
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Schritt 2: Fork erstellen (im Browser)</h3>
+    <ol>
+      <li>Gehe auf unser Projekt: <a href="https://github.com/FreiconOSS/GirlsDay2026-FREICON" target="_blank">github.com/FreiconOSS/GirlsDay2026-FREICON</a></li>
+      <li>Klicke oben rechts auf den Button <strong>„Fork"</strong></li>
+      <li>Klicke auf <strong>„Create fork"</strong></li>
+      <li>Fertig! Du hast jetzt deine eigene Kopie! 🎉</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>Schritt 3: Projekt auf deinen Computer laden</h3>
+    <p>Jetzt holen wir den Code auf deinen Computer. Dafür brauchst du ein <strong>Terminal</strong>
+    (das ist ein Fenster wo man Befehle eintippen kann).</p>
+
+    <div class="important">
+      ⚠️ <strong>Ersetze DEIN-USERNAME</strong> in den Befehlen unten mit deinem echten GitHub-Benutzernamen!
+    </div>
+
+    <p><strong>Terminal öffnen:</strong></p>
+    <div class="os-tabs" data-group="terminal">
+      <button class="os-tab active" onclick="switchOS('terminal', 'mac')">🍎 Mac</button>
+      <button class="os-tab" onclick="switchOS('terminal', 'windows')">🪟 Windows</button>
+      <button class="os-tab" onclick="switchOS('terminal', 'linux')">🐧 Linux</button>
+    </div>
+
+    <div class="os-content active" data-group="terminal" data-os="mac">
+      <div class="terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot dot-red"></span>
+          <span class="terminal-dot dot-yellow"></span>
+          <span class="terminal-dot dot-green"></span>
+          Terminal (Mac)
+        </div>
+        <div class="terminal-body">
+<span class="comment"># Terminal öffnen: Spotlight (Cmd+Leertaste) → "Terminal" eintippen → Enter</span>
+
+<span class="comment"># 1. In den Ordner gehen wo du das Projekt haben willst</span>
+<span class="prompt">$</span> <span class="cmd">cd ~/Desktop</span>
+
+<span class="comment"># 2. Dein Fork runterladen (DEIN-USERNAME ersetzen!)</span>
+<span class="prompt">$</span> <span class="cmd">git clone https://github.com/DEIN-USERNAME/GirlsDay2026-FREICON.git</span>
+
+<span class="comment"># 3. In den Projektordner wechseln</span>
+<span class="prompt">$</span> <span class="cmd">cd GirlsDay2026-FREICON</span>
+
+<span class="comment"># 4. Fertig! Der Code ist jetzt auf deinem Desktop 🎉</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="os-content" data-group="terminal" data-os="windows">
+      <div class="terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot dot-red"></span>
+          <span class="terminal-dot dot-yellow"></span>
+          <span class="terminal-dot dot-green"></span>
+          PowerShell (Windows)
+        </div>
+        <div class="terminal-body">
+<span class="comment"># Terminal öffnen: Windows-Taste → "PowerShell" eintippen → Enter</span>
+<span class="comment"># (Falls git nicht installiert: git-scm.com runterladen und installieren)</span>
+
+<span class="comment"># 1. In den Ordner gehen wo du das Projekt haben willst</span>
+<span class="prompt">></span> <span class="cmd">cd ~\Desktop</span>
+
+<span class="comment"># 2. Dein Fork runterladen (DEIN-USERNAME ersetzen!)</span>
+<span class="prompt">></span> <span class="cmd">git clone https://github.com/DEIN-USERNAME/GirlsDay2026-FREICON.git</span>
+
+<span class="comment"># 3. In den Projektordner wechseln</span>
+<span class="prompt">></span> <span class="cmd">cd GirlsDay2026-FREICON</span>
+
+<span class="comment"># 4. Fertig! Der Code ist jetzt auf deinem Desktop 🎉</span>
+        </div>
+      </div>
+      <div class="important">
+        ⚠️ <strong>Git fehlt?</strong> Lade Git von <a href="https://git-scm.com/downloads" target="_blank">git-scm.com</a> herunter und installiere es. Danach PowerShell neu öffnen.
+      </div>
+    </div>
+
+    <div class="os-content" data-group="terminal" data-os="linux">
+      <div class="terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot dot-red"></span>
+          <span class="terminal-dot dot-yellow"></span>
+          <span class="terminal-dot dot-green"></span>
+          Terminal (Linux)
+        </div>
+        <div class="terminal-body">
+<span class="comment"># Terminal öffnen: Strg+Alt+T</span>
+
+<span class="comment"># 1. In den Ordner gehen wo du das Projekt haben willst</span>
+<span class="prompt">$</span> <span class="cmd">cd ~/Desktop</span>
+
+<span class="comment"># 2. Dein Fork runterladen (DEIN-USERNAME ersetzen!)</span>
+<span class="prompt">$</span> <span class="cmd">git clone https://github.com/DEIN-USERNAME/GirlsDay2026-FREICON.git</span>
+
+<span class="comment"># 3. In den Projektordner wechseln</span>
+<span class="prompt">$</span> <span class="cmd">cd GirlsDay2026-FREICON</span>
+
+<span class="comment"># 4. Fertig! Der Code ist jetzt auf deinem Desktop 🎉</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TEIL 3: MIT KI WEITERARBEITEN ==================== -->
+  <div class="section-header">🤖 Mit KI weiterarbeiten</div>
+
+  <div class="card">
+    <h3>Option A: VS Code + GitHub Copilot</h3>
+    <div class="difficulty">⭐⭐ Empfohlen — so haben wir im Workshop gearbeitet!</div>
+    <ol>
+      <li>Lade <a href="https://code.visualstudio.com" target="_blank">VS Code</a> herunter (kostenlos)</li>
+      <li>Installiere die Erweiterung <strong>„GitHub Copilot"</strong> (im Extensions-Tab suchen)</li>
+      <li>Melde dich mit deinem GitHub-Account an</li>
+      <li>Öffne den Projektordner in VS Code: <em>Datei → Ordner öffnen → GirlsDay2026-FREICON</em></li>
+      <li>Drücke <strong>Strg+I</strong> (Windows) oder <strong>Cmd+I</strong> (Mac) um mit Copilot zu chatten</li>
+      <li>Sag z.B.: <em>„Füge einen Countdown-Timer auf der Startseite hinzu"</em></li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>Option B: Claude Code (Terminal)</h3>
+    <div class="difficulty">⭐⭐⭐ Für Fortgeschrittene — aber mega mächtig!</div>
+    <p>Claude Code ist ein KI-Assistent der direkt im Terminal arbeitet — genau so wie heute im Workshop!</p>
+
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="terminal-dot dot-red"></span>
+        <span class="terminal-dot dot-yellow"></span>
+        <span class="terminal-dot dot-green"></span>
+        Terminal
+      </div>
+      <div class="terminal-body">
+<span class="comment"># 1. Claude Code installieren (braucht npm/Node.js)</span>
+<span class="prompt">$</span> <span class="cmd">npm install -g @anthropic-ai/claude-code</span>
+
+<span class="comment"># 2. In deinen Projektordner gehen</span>
+<span class="prompt">$</span> <span class="cmd">cd ~/Desktop/GirlsDay2026-FREICON</span>
+
+<span class="comment"># 3. Claude starten</span>
+<span class="prompt">$</span> <span class="cmd">claude</span>
+
+<span class="comment"># 4. Jetzt einfach sagen was du willst! z.B.:</span>
+<span class="comment"># "Mach die Sterne auf der Startseite bunt"</span>
+<span class="comment"># "Füge ein neues Genre hinzu: Horror"</span>
+<span class="comment"># "Mach einen Dark Mode für die ganze App"</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      💡 <strong>Node.js fehlt?</strong> Lade es von <a href="https://nodejs.org" target="_blank">nodejs.org</a> herunter
+      (die LTS-Version). Danach Terminal neu öffnen.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Option C: ChatGPT / Claude.ai im Browser</h3>
+    <div class="difficulty">⭐ Am einfachsten — braucht keine Installation</div>
+    <ol>
+      <li>Gehe auf <a href="https://chatgpt.com" target="_blank">chatgpt.com</a> oder <a href="https://claude.ai" target="_blank">claude.ai</a></li>
+      <li>Öffne die Datei <code>projects/dailyglow/index.html</code> im Texteditor</li>
+      <li>Kopiere den Code und füge ihn in den Chat ein</li>
+      <li>Sag: <em>„Hier ist meine App. Kannst du [DEINE IDEE] hinzufügen?"</em></li>
+      <li>Die KI gibt dir den geänderten Code zurück — kopiere ihn zurück in deine Datei</li>
+    </ol>
+  </div>
+
+  <!-- ==================== TEIL 4: ÄNDERUNGEN HOCHLADEN ==================== -->
+  <div class="section-header">📤 Änderungen hochladen</div>
+
+  <div class="card">
+    <h3>Deine Änderungen auf GitHub pushen</h3>
+    <p>Wenn du etwas geändert hast und es online stellen willst:</p>
+
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="terminal-dot dot-red"></span>
+        <span class="terminal-dot dot-yellow"></span>
+        <span class="terminal-dot dot-green"></span>
+        Terminal
+      </div>
+      <div class="terminal-body">
+<span class="comment"># 1. Alle Änderungen markieren</span>
+<span class="prompt">$</span> <span class="cmd">git add -A</span>
+
+<span class="comment"># 2. Einen „Speicherpunkt" machen (wie Speichern im Spiel!)</span>
+<span class="prompt">$</span> <span class="cmd">git commit -m "Mein cooles neues Feature"</span>
+
+<span class="comment"># 3. Auf GitHub hochladen</span>
+<span class="prompt">$</span> <span class="cmd">git push</span>
+
+<span class="comment"># Fertig! Deine Änderungen sind jetzt auf GitHub! 🎉</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      💡 <strong>Wie Speichern im Spiel:</strong> Ein „Commit" ist wie ein Speicherpunkt.
+      Du kannst immer zu jedem Speicherpunkt zurück! Mach also ruhig oft Commits.
+    </div>
+  </div>
+
+  <!-- ==================== TEIL 5: PULL REQUESTS ==================== -->
+  <div class="section-header">🔀 Pull Requests — Änderungen vorschlagen</div>
+
+  <div class="card">
+    <h3>Was ist ein Pull Request?</h3>
+    <p>
+      Du hast deinen eigenen Fork (deine Kopie) und hast dort etwas Tolles gebaut.
+      Jetzt willst du, dass deine Änderung auch im <strong>Original-Projekt</strong> landet — damit alle sie sehen können!
+    </p>
+    <p>
+      Dafür gibt es <strong>Pull Requests</strong> (kurz: PR). Das ist wie ein <strong>Vorschlag</strong>:
+      Du sagst „Hey, schaut mal was ich gebaut habe! Wollt ihr das übernehmen?"
+    </p>
+    <p>
+      Das Original-Team (in unserem Fall Andreas) schaut sich deinen Vorschlag an und kann ihn annehmen. 
+      So arbeiten echte Programmierer auf der ganzen Welt zusammen! 🌍
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>So erstellst du einen Pull Request</h3>
+    <ol>
+      <li>Pushe deine Änderungen auf deinen Fork (siehe oben)</li>
+      <li>Gehe auf <a href="https://github.com" target="_blank">github.com</a> zu deinem Fork</li>
+      <li>Du siehst oben eine gelbe Box: <strong>„This branch is X commits ahead"</strong></li>
+      <li>Klicke auf <strong>„Contribute"</strong> → <strong>„Open pull request"</strong></li>
+      <li>Schreibe einen Titel, z.B.: <em>„Neues Genre: Horror-Geschichten hinzugefügt 👻"</em></li>
+      <li>Beschreibe kurz was du gemacht hast</li>
+      <li>Klicke auf <strong>„Create pull request"</strong></li>
+      <li>Fertig! Jetzt wartet dein Vorschlag auf Review! 🎉</li>
+    </ol>
+
+    <div class="important">
+      ⚠️ <strong>Wichtig:</strong> Man kann nicht einfach so Code ins Original-Projekt hochladen —
+      das wäre ja so als könnte jeder in deinem Zimmer die Möbel umstellen!
+      Deshalb gibt es Pull Requests: Du <em>fragst freundlich</em> ob deine Änderung übernommen werden soll.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Tipps für gute Pull Requests</h3>
+    <ul>
+      <li>📝 <strong>Guter Titel</strong> — sag kurz was du gemacht hast</li>
+      <li>📸 <strong>Screenshot</strong> — zeig wie es aussieht (Bild in die Beschreibung ziehen)</li>
+      <li>🧪 <strong>Testen</strong> — probier vorher aus ob alles funktioniert</li>
+      <li>💬 <strong>Nett sein</strong> — Code-Review ist ein Gespräch, kein Test</li>
+      <li>🎯 <strong>Klein halten</strong> — lieber 3 kleine PRs als eine riesige</li>
+    </ul>
+  </div>
+
+  <!-- ==================== TEIL 6: IDEEN ==================== -->
+  <div class="section-header">💡 Ideen zum Weitermachen</div>
+
+  <div class="card">
+    <h3>Was könnte man noch bauen?</h3>
+    <ul>
+      <li>👻 <strong>Neues Genre:</strong> Horror, Romantik, Märchen...</li>
+      <li>🌙 <strong>Tages- & Nachtmodus:</strong> Morgens andere Sprüche als abends</li>
+      <li>📅 <strong>Kalender:</strong> Jeden Tag ein neuer Spruch</li>
+      <li>👤 <strong>Profil:</strong> Name eingeben und personalisierte Begrüßung</li>
+      <li>🏆 <strong>Sammlung:</strong> Lieblingssprüche speichern</li>
+      <li>🎵 <strong>Hintergrundmusik:</strong> Entspannende Musik beim Lesen</li>
+      <li>🌍 <strong>Englische Version:</strong> Die App in andere Sprachen übersetzen</li>
+      <li>📱 <strong>Eigene App:</strong> Eine ganz neue App-Idee umsetzen!</li>
+    </ul>
+    <div class="tip">
+      💡 <strong>Denk dran:</strong> Du musst nicht alles alleine machen!
+      Die KI hilft dir bei jedem Schritt. Sag ihr einfach was du willst.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-msg">
+    <h2>Du schaffst das! 💪</h2>
+    <p>
+      Heute hast du bewiesen, dass du programmieren kannst. Du hast eine echte App gebaut,
+      die im Internet läuft und die jeder benutzen kann.<br><br>
+      Das ist erst der Anfang. Die nächste App wartet schon auf dich! 🚀<br><br>
+      <em style="color: rgba(255,255,255,0.3);">— Das DailyGlow Team, GirlsDay 2026</em>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  // Sterne
+  for (let i = 0; i < 20; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.textContent = '✦';
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.fontSize = (0.3 + Math.random() * 0.5) + 'rem';
+    star.style.animationDelay = Math.random() * 5 + 's';
+    star.style.animationDuration = (2 + Math.random() * 4) + 's';
+    document.body.appendChild(star);
+  }
+
+  // OS-Tab Wechsel
+  function switchOS(group, os) {
+    document.querySelectorAll(`.os-tab`).forEach(tab => {
+      if (tab.closest('.card').querySelector(`[data-group="${group}"]`)) {
+        tab.classList.toggle('active', tab.textContent.toLowerCase().includes(os.substring(0, 3)));
+      }
+    });
+    document.querySelectorAll(`[data-group="${group}"]`).forEach(el => {
+      if (el.classList.contains('os-tab')) return;
+      el.classList.toggle('active', el.dataset.os === os);
+    });
+  }
+</script>
+</body>
+</html>

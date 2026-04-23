@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📖 Making-Of — So haben wir DailyGlow gebaut!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+      background-size: 200% 200%;
+      animation: bg 20s ease infinite;
+      min-height: 100vh;
+      padding: 1.5rem 1rem 4rem;
+      color: #e0e0ff;
+    }
+    @keyframes bg { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    .container { max-width: 650px; margin: 0 auto; }
+
+    .back-link {
+      display: inline-block;
+      text-decoration: none;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: white; }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero-emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+
+    h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-sub {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .intro-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .intro-card strong { color: #ffd700; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #a78bfa, #f472b6, #ffd700, #34d399);
+      border-radius: 2px;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      animation: fadeIn 0.5s ease both;
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      left: -1.65rem;
+      top: 1.8rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #a78bfa;
+      border: 2px solid #1a1a2e;
+    }
+
+    .step-card:nth-child(even)::before { background: #f472b6; }
+    .step-card:nth-child(3n)::before { background: #ffd700; }
+    .step-card:nth-child(4n)::before { background: #34d399; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .step-number {
+      font-size: 0.7rem;
+      color: #a78bfa;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.6rem;
+    }
+
+    .step-description {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+
+    .step-code {
+      background: rgba(0,0,0,0.35);
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 0.8rem 0;
+      overflow-x: auto;
+    }
+
+    .code-label {
+      font-size: 0.65rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-code pre {
+      margin: 0;
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #c4b5fd;
+    }
+
+    .step-code pre .comment { color: #6b7280; }
+    .step-code pre .keyword { color: #f472b6; }
+    .step-code pre .string { color: #34d399; }
+
+    .step-explain {
+      background: rgba(167,139,250,0.08);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .step-explain strong { color: #c4b5fd; }
+
+    .step-who {
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      font-style: italic;
+    }
+
+    /* Team-Sektion */
+    .team-section {
+      text-align: center;
+      margin-top: 2.5rem;
+      padding: 2rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .team-section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #ffd700;
+    }
+
+    .team-members {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .team-member {
+      text-align: center;
+    }
+
+    .team-avatar {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .team-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .team-role {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-msg {
+      text-align: center;
+      margin-top: 2rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Sterne */
+    .star { position: fixed; color: rgba(255,255,255,0.5); pointer-events: none; animation: twinkle 3s ease-in-out infinite; z-index: 0; }
+    @keyframes twinkle { 0%,100%{opacity:0.3;transform:scale(0.8)} 50%{opacity:1;transform:scale(1.2)} }
+    .container { position: relative; z-index: 1; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-link">← Zurück zur App</a>
+
+    <div class="hero">
+      <div class="hero-emoji">📖</div>
+      <h1>So haben wir DailyGlow gebaut!</h1>
+      <p class="hero-sub">GirlsDay 2026 bei der Freicon GmbH</p>
+    </div>
+
+    <div class="intro-card">
+      Am <strong>23. April 2026</strong> haben wir in einem einzigen Tag eine komplette App gebaut —
+      von der ersten Idee bis zur fertigen Website die jeder im Internet aufrufen kann.
+      Hier ist die Geschichte wie das alles entstanden ist! 🚀
+    </div>
+
+    <div class="timeline">
+
+      <!-- Schritt 1 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 1</div>
+        <div class="step-title">💡 Die Idee: Eine Motivations-App!</div>
+        <div class="step-description">
+          Wir haben zusammen überlegt was wir bauen wollen. Die Idee: Eine App die einem den Tag verschönert —
+          mit Sprüchen und Kurzgeschichten die zu deiner Stimmung passen. Wie ein persönlicher Begleiter der
+          immer weiß was du gerade brauchst.
+        </div>
+        <div class="step-explain">
+          💡 <strong>Wie sind wir auf den Namen gekommen?</strong>
+          Wir haben der KI gesagt sie soll uns 10 Namen vorschlagen.
+          „DailyGlow" — dein tägliches Leuchten — hat am besten gepasst!
+        </div>
+        <div class="step-who">🗣️ Idee von: Leni, Luise & Lotta gemeinsam</div>
+      </div>
+
+      <!-- Schritt 2 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 2</div>
+        <div class="step-title">🌸 Das Design: Kirschblüte mit Sternen</div>
+        <div class="step-description">
+          Wir haben verschiedene Designs ausprobiert — Sonnenuntergang, Lavendel, Ozean...
+          Am Ende wurde es „Kirschblüte" mit goldener Schrift und funkelnden Sternen im Hintergrund.
+        </div>
+        <div class="step-code">
+          <div class="code-label">Das steckt dahinter:</div>
+<pre><code><span class="comment">/* Ein animierter Farbverlauf — wie ein lebendiges Gemälde */</span>
+<span class="keyword">background:</span> <span class="string">linear-gradient(145deg, #ffecd2, #fcb69f, #f8a4c8)</span>;
+<span class="keyword">animation:</span> gradientShift 20s ease infinite;
+
+<span class="comment">/* Die Sterne werden per JavaScript zufällig verteilt */</span>
+sparkle.style.left = Math.random() * 100 + <span class="string">'vw'</span>;</code></pre>
+        </div>
+        <div class="step-explain">
+          💡 <strong>Was ist ein Gradient?</strong>
+          Das ist ein Farbverlauf — wie wenn du mit Wasserfarben zwei Farben ineinander laufen lässt.
+          Und mit <code>animation</code> bewegt sich der Verlauf ganz sanft hin und her!
+        </div>
+      </div>
+
+      <!-- Schritt 3 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 3</div>
+        <div class="step-title">🌳 Der Gefühlsbaum</div>
+        <div class="step-description">
+          Das Herzstück der App: Ein „Gefühlsbaum" der dich Schritt für Schritt fragt wie es dir geht
+          und was du brauchst. Je nach Antwort bekommst du am Ende einen passenden Spruch oder eine Geschichte.
+        </div>
+        <div class="step-code">
+          <div class="code-label">So merkt sich die App deine Antworten:</div>
+<pre><code><span class="comment">// Wie ein Notizzettel — die App merkt sich jeden Schritt</span>
+<span class="keyword">let</span> state = {
+  format: <span class="string">'geschichte'</span>,  <span class="comment">// Spruch oder Geschichte?</span>
+  mood: <span class="string">'nichtgut'</span>,       <span class="comment">// Wie geht es dir?</span>
+  need: <span class="string">'mut'</span>,             <span class="comment">// Was brauchst du?</span>
+  genre: <span class="string">'fantasy'</span>         <span class="comment">// Welche Welt?</span>
+};</code></pre>
+        </div>
+        <div class="step-explain">
+          💡 <strong>Was ist ein „State"?</strong>
+          Das ist wie ein Notizzettel auf dem die App mitschreibt.
+          Bei jedem Klick wird eine neue Zeile ausgefüllt — am Ende weiß die App genau was du brauchst!
+        </div>
+      </div>
+
+      <!-- Schritt 4 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 4</div>
+        <div class="step-title">✍️ 400 Sprüche & Geschichten</div>
+        <div class="step-description">
+          Wir haben mit Hilfe der KI 400 verschiedene Sprüche geschrieben — für jede Stimmung und jedes Genre.
+          Dazu 15 handgeschriebene Mut-Geschichten und noch mehr Geschichten für Trost, Ablenkung und Ruhe.
+        </div>
+        <div class="step-explain">
+          💡 <strong>Wie passt der Spruch zu mir?</strong>
+          Die App schaut auf deinen Notizzettel (den State) und sucht genau den passenden Spruch raus.
+          Wie in einer riesigen Bibliothek — aber die App kennt genau dein Regal!
+        </div>
+      </div>
+
+      <!-- Schritt 5 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 5</div>
+        <div class="step-title">🎨 11 Farbwelten</div>
+        <div class="step-description">
+          Weil nicht jeder Rosa mag! Wir haben 11 verschiedene Farbthemen gebaut:
+          Waldgrün, Mitternacht, Pfirsich-Minz, Flamingo, Regenbogen, Feuer, Lavendel,
+          Königskrone, Vulkanglut, Zitronenwiese und natürlich Kirschblüte.
+        </div>
+        <div class="step-code">
+          <div class="code-label">So wechselt man das Farbthema:</div>
+<pre><code><span class="comment">// Der Body bekommt einen neuen „Spitznamen"</span>
+document.body.className = <span class="string">'theme-nacht'</span>;
+
+<span class="comment">// Und CSS weiß: bei dem Spitznamen → dunkle Farben!</span>
+<span class="keyword">body.theme-nacht</span> {
+  <span class="keyword">background:</span> <span class="string">linear-gradient(145deg, #0d1b2a, #1b2838)</span>;
+}</code></pre>
+        </div>
+        <div class="step-explain">
+          💡 <strong>Was sind CSS-Klassen?</strong>
+          Das ist wie ein Namensschild. Wenn du dem Body das Schild „theme-nacht" gibst,
+          weiß der Browser: „Aha, jetzt soll alles dunkel sein!" Schild wechseln = Farbe wechseln!
+        </div>
+        <div class="step-who">🗣️ Farbkombinationen ausgewählt von: Leni, Luise & Lotta</div>
+      </div>
+
+      <!-- Schritt 6 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 6</div>
+        <div class="step-title">🔊 Sound-Effekte mit KI-Stimme</div>
+        <div class="step-description">
+          Wir haben mit ElevenLabs Sound-Effekte generiert — Drachenbrüllen, böses Lachen,
+          Lasersschwert, Pferdegalopp und mehr! Außerdem hat die KI-Stimme „Lucy Fennek"
+          90 Sprüche und Geschichten vorgelesen.
+        </div>
+        <div class="step-code">
+          <div class="code-label">So spielt die App einen zufälligen Sound:</div>
+<pre><code><span class="comment">// Wie eine Jukebox — zufällig einen Song auswählen</span>
+<span class="keyword">const</span> pool = genreSounds[<span class="string">'fantasy'</span>];
+<span class="keyword">const</span> zufallsSound = pool[Math.floor(Math.random() * pool.length)];
+<span class="keyword">new</span> Audio(zufallsSound).play();</code></pre>
+        </div>
+        <div class="step-explain">
+          💡 <strong>Was macht Math.random()?</strong>
+          Das ist wie Würfeln! Der Computer würfelt eine Zufallszahl und wählt damit
+          einen Sound aus der Liste aus. Deshalb kommt jedes Mal ein anderer!
+        </div>
+      </div>
+
+      <!-- Schritt 7 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 7</div>
+        <div class="step-title">📚 Die Geheime Bibliothek</div>
+        <div class="step-description">
+          Ein Easter Egg! Wenn man 5x auf den Stern tippt, öffnet sich eine geheime Seite
+          wo man alle vertonten Sprüche und Geschichten anhören und mitlesen kann.
+          Mit Suchfunktion und Filtern nach Genre!
+        </div>
+        <div class="step-explain">
+          💡 <strong>Was ist ein Easter Egg?</strong>
+          Eine versteckte Überraschung in einer App! Nur wer es weiß (oder zufällig entdeckt)
+          findet es. Echte Programmierer lieben Easter Eggs — Google hat auch welche! 🥚
+        </div>
+      </div>
+
+      <!-- Schritt 8 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 8</div>
+        <div class="step-title">📤 Teilen & QR-Code</div>
+        <div class="step-description">
+          Damit alle die App finden können, haben wir einen Teilen-Button mit WhatsApp,
+          Telegram und E-Mail eingebaut. Und eine QR-Code Seite die man sogar ausdrucken kann!
+        </div>
+        <div class="step-explain">
+          💡 <strong>Was ist ein QR-Code?</strong>
+          Ein Bild das dein Handy lesen kann wie einen Link. Kamera draufhalten und zack —
+          du bist auf der Seite! Wie ein geheimer Barcode für Websites.
+        </div>
+      </div>
+
+      <!-- Schritt 9 -->
+      <div class="step-card">
+        <div class="step-number">Schritt 9</div>
+        <div class="step-title">🚀 Ab ins Internet!</div>
+        <div class="step-description">
+          Am Ende haben wir alles auf GitHub Pages hochgeladen. Das ist ein kostenloser Service
+          wo man Websites veröffentlichen kann. Jetzt kann jeder auf der Welt unsere App benutzen!
+        </div>
+        <div class="step-explain">
+          💡 <strong>Wie kommt die App ins Internet?</strong>
+          Wir schieben unseren Code auf GitHub (wie eine Online-Festplatte für Code).
+          GitHub Pages macht daraus automatisch eine echte Website mit eigener Adresse!
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Team -->
+    <div class="team-section">
+      <h2>👩‍💻 Das Team</h2>
+      <div class="team-members">
+        <div class="team-member">
+          <span class="team-avatar">👩‍🎨</span>
+          <div class="team-name">Leni</div>
+          <div class="team-role">Designerin & Ideengeberin</div>
+        </div>
+        <div class="team-member">
+          <span class="team-avatar">👩‍🔬</span>
+          <div class="team-name">Luise</div>
+          <div class="team-role">Kreativdirektorin</div>
+        </div>
+        <div class="team-member">
+          <span class="team-avatar">👩‍🚀</span>
+          <div class="team-name">Lotta</div>
+          <div class="team-role">Sound-Spezialistin</div>
+        </div>
+        <div class="team-member">
+          <span class="team-avatar">👨‍💻</span>
+          <div class="team-name">Andreas</div>
+          <div class="team-role">Entwickler & Coach</div>
+        </div>
+        <div class="team-member">
+          <span class="team-avatar">🤖</span>
+          <div class="team-name">Copilot</div>
+          <div class="team-role">KI-Assistent</div>
+        </div>
+      </div>
+      <p style="color: rgba(255,255,255,0.4); font-size: 0.85rem;">
+        Gebaut beim GirlsDay 2026 · Freicon GmbH · Freiburg
+      </p>
+    </div>
+
+    <div class="footer-msg">
+      Ihr habt das echt toll gemacht! 💛✨
+    </div>
+
+  </div>
+
+  <script>
+    for (let i = 0; i < 25; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.textContent = '✦';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.fontSize = (0.3 + Math.random() * 0.5) + 'rem';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      star.style.animationDuration = (2 + Math.random() * 4) + 's';
+      document.body.appendChild(star);
+    }
+
+    document.querySelectorAll('.step-card').forEach((card, i) => {
+      card.style.animationDelay = (i * 0.1) + 's';
+    });
+  </script>
+</body>
+</html>

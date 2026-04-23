@@ -433,6 +433,28 @@
       transform: scale(1.05);
     }
 
+    .start-links {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+
+    .start-link {
+      color: var(--text-soft);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s;
+    }
+    .start-link:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.05);
+    }
+
     /* Ergebnis-Seite */
     .result-content {
       background: rgba(255, 255, 255, 0.5);
@@ -976,6 +998,10 @@
       <h1 class="app-title">DailyGlow</h1>
       <p class="app-subtitle">Dein täglicher Motivations-Begleiter</p>
       <button class="start-btn" onclick="goTo('screen-format')">Los geht's</button>
+      <div class="start-links">
+        <a href="making-of.html" class="start-link">📖 Making-Of</a>
+        <a href="weitermachen.html" class="start-link">🚀 Weitermachen</a>
+      </div>
     </div>
 
     <!-- ============ SCREEN 1: Format wählen ============ -->
