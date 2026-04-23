@@ -130,6 +130,24 @@
       animation: float 3s ease-in-out infinite;
     }
 
+    .easter-egg {
+      cursor: pointer;
+      transition: transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .easter-egg:active {
+      transform: scale(1.3) rotate(20deg) !important;
+    }
+    .easter-egg.found {
+      animation: easterSpin 0.8s ease forwards;
+    }
+    @keyframes easterSpin {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.8) rotate(360deg); }
+      100% { transform: scale(1) rotate(720deg); }
+    }
+
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-12px); }
@@ -809,7 +827,7 @@
 
     <!-- ============ SCREEN 0: Start ============ -->
     <div class="screen active" id="screen-start">
-      <span class="floating-emoji">🌟</span>
+      <span class="floating-emoji easter-egg" id="easter-star" onclick="easterTap()">🌟</span>
       <h1 class="app-title">DailyGlow</h1>
       <p class="app-subtitle">Dein täglicher Motivations-Begleiter</p>
       <button class="start-btn" onclick="goTo('screen-format')">Los geht's</button>
@@ -1489,6 +1507,27 @@
     const savedTheme = localStorage.getItem('dailyglow-theme');
     if (savedTheme) {
       setTheme(savedTheme);
+    }
+
+    // === Easter Egg: 5x auf den Stern tippen → Geheime Bibliothek ===
+    let easterCount = 0;
+    let easterTimer = null;
+    function easterTap() {
+      easterCount++;
+      if (easterTimer) clearTimeout(easterTimer);
+      
+      if (easterCount >= 5) {
+        easterCount = 0;
+        const star = document.getElementById('easter-star');
+        star.classList.add('found');
+        playBlob();
+        setTimeout(() => {
+          window.location.href = 'bibliothek.html';
+        }, 800);
+      } else {
+        // Reset nach 2 Sekunden
+        easterTimer = setTimeout(() => { easterCount = 0; }, 2000);
+      }
     }
   </script>
 </body>

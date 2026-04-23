@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📚 DailyGlow — Geheime Bibliothek</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+      background-size: 200% 200%;
+      animation: bg 20s ease infinite;
+      min-height: 100vh;
+      padding: 1rem;
+      color: #e0e0ff;
+    }
+    @keyframes bg { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    /* Sterne im Hintergrund */
+    .star {
+      position: fixed;
+      color: rgba(255,255,255,0.6);
+      pointer-events: none;
+      animation: twinkle 3s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-block;
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: white; }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 0.2rem;
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.2rem;
+    }
+
+    /* Suchleiste */
+    .search-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      backdrop-filter: blur(10px);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: rgba(255,215,0,0.5);
+    }
+    .search-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    /* Filter-Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-tab {
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-tab:hover { background: rgba(255,255,255,0.12); color: white; }
+    .filter-tab.active {
+      background: rgba(255,215,0,0.2);
+      border-color: rgba(255,215,0,0.4);
+      color: #ffd700;
+    }
+
+    .count {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1rem;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin-bottom: 0.8rem;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .card:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .play-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      color: #1a1a2e;
+      font-size: 1.2rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    }
+    .play-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255,215,0,0.4);
+    }
+    .play-btn.playing {
+      background: linear-gradient(135deg, #ef5350, #e53935);
+      color: white;
+      animation: pulse 1s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(239,83,80,0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(239,83,80,0); }
+    }
+
+    .card-info { flex: 1; min-width: 0; }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tag-spruch {
+      background: rgba(167,139,250,0.2);
+      color: #c4b5fd;
+      border: 1px solid rgba(167,139,250,0.3);
+    }
+    .tag-geschichte {
+      background: rgba(255,215,0,0.15);
+      color: #ffd700;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: white;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-text {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-genre {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.3rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.9rem;
+    }
+
+    /* Progress bar für Audio */
+    .audio-progress {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      margin-top: 0.6rem;
+      overflow: hidden;
+      display: none;
+    }
+    .audio-progress.active { display: block; }
+    .audio-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ffd700, #ffaa00);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="index.html" class="back-link">← Zurück zur App</a>
+
+    <h1>📚 Geheime Bibliothek</h1>
+    <p class="subtitle">Psst... hier kannst du alles anhören!</p>
+
+    <input class="search-input" type="text" placeholder="🔍 Suchen..." oninput="filterCards()">
+
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="alle" onclick="setFilter('alle')">Alle</button>
+      <button class="filter-tab" data-filter="spruch" onclick="setFilter('spruch')">💬 Sprüche</button>
+      <button class="filter-tab" data-filter="geschichte" onclick="setFilter('geschichte')">📖 Geschichten</button>
+      <button class="filter-tab" data-filter="fantasy" onclick="setFilter('fantasy')">🧙 Fantasy</button>
+      <button class="filter-tab" data-filter="krimi" onclick="setFilter('krimi')">🔍 Krimi</button>
+      <button class="filter-tab" data-filter="scifi" onclick="setFilter('scifi')">🚀 SciFi</button>
+      <button class="filter-tab" data-filter="abenteuer" onclick="setFilter('abenteuer')">⛰️ Abenteuer</button>
+      <button class="filter-tab" data-filter="lustig" onclick="setFilter('lustig')">😂 Lustig</button>
+    </div>
+
+    <div class="count" id="count"></div>
+    <div id="cards"></div>
+  </div>
+
+  <script src="library-data.js"></script>
+  <script>
+    let currentFilter = 'alle';
+    let currentAudio = null;
+    let currentBtn = null;
+    let progressInterval = null;
+
+    // Sterne erzeugen
+    for (let i = 0; i < 30; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.textContent = '✦';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.fontSize = (0.3 + Math.random() * 0.6) + 'rem';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      star.style.animationDuration = (2 + Math.random() * 4) + 's';
+      document.body.appendChild(star);
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.filter === filter);
+      });
+      filterCards();
+    }
+
+    function filterCards() {
+      const query = document.querySelector('.search-input').value.toLowerCase().trim();
+      const container = document.getElementById('cards');
+      container.innerHTML = '';
+
+      const filtered = libraryData.filter(item => {
+        // Filter-Tab
+        if (currentFilter !== 'alle') {
+          if (currentFilter === 'spruch' && item.type !== 'spruch') return false;
+          if (currentFilter === 'geschichte' && item.type !== 'geschichte') return false;
+          if (['fantasy', 'krimi', 'scifi', 'abenteuer', 'lustig'].includes(currentFilter)) {
+            if (item.type === 'spruch') {
+              if (!item.text.toLowerCase().includes(currentFilter)) return false;
+            } else {
+              if (!item.genre.toLowerCase().includes(currentFilter)) return false;
+            }
+          }
+        }
+
+        // Suchtext
+        if (query) {
+          const searchable = item.type === 'spruch'
+            ? item.text.toLowerCase()
+            : (item.title + ' ' + item.genre + ' ' + item.preview).toLowerCase();
+          if (!searchable.includes(query)) return false;
+        }
+
+        return true;
+      });
+
+      document.getElementById('count').textContent = `${filtered.length} Ergebnis${filtered.length !== 1 ? 'se' : ''}`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="no-results">🔮 Nichts gefunden... versuch andere Suchbegriffe!</div>';
+        return;
+      }
+
+      filtered.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        if (item.type === 'spruch') {
+          card.innerHTML = `
+            <div class="card-header">
+              <button class="play-btn" onclick="playAudio(this, '${item.file}')">▶</button>
+              <div class="card-info">
+                <span class="card-tag tag-spruch">💬 Spruch</span>
+                <div class="card-text">${item.text}</div>
+              </div>
+            </div>
+            <div class="audio-progress"><div class="audio-progress-bar"></div></div>`;
+        } else {
+          card.innerHTML = `
+            <div class="card-header">
+              <button class="play-btn" onclick="playAudio(this, '${item.file}')">▶</button>
+              <div class="card-info">
+                <span class="card-tag tag-geschichte">📖 Geschichte</span>
+                <div class="card-title">${item.title}</div>
+                <div class="card-text">${item.preview}</div>
+                <div class="card-genre">${item.genre}</div>
+              </div>
+            </div>
+            <div class="audio-progress"><div class="audio-progress-bar"></div></div>`;
+        }
+
+        container.appendChild(card);
+      });
+    }
+
+    function playAudio(btn, src) {
+      // Aktuellen stoppen
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        if (currentBtn) {
+          currentBtn.classList.remove('playing');
+          currentBtn.textContent = '▶';
+          currentBtn.closest('.card').querySelector('.audio-progress').classList.remove('active');
+        }
+        if (progressInterval) clearInterval(progressInterval);
+
+        if (currentBtn === btn) {
+          currentAudio = null;
+          currentBtn = null;
+          return;
+        }
+      }
+
+      currentAudio = new Audio(src);
+      currentBtn = btn;
+      btn.classList.add('playing');
+      btn.textContent = '⏹';
+
+      const progressEl = btn.closest('.card').querySelector('.audio-progress');
+      const progressBar = progressEl.querySelector('.audio-progress-bar');
+      progressEl.classList.add('active');
+
+      currentAudio.play().catch(() => {
+        btn.classList.remove('playing');
+        btn.textContent = '▶';
+        progressEl.classList.remove('active');
+        currentAudio = null;
+        currentBtn = null;
+      });
+
+      progressInterval = setInterval(() => {
+        if (currentAudio && currentAudio.duration) {
+          const pct = (currentAudio.currentTime / currentAudio.duration) * 100;
+          progressBar.style.width = pct + '%';
+        }
+      }, 200);
+
+      currentAudio.onended = () => {
+        btn.classList.remove('playing');
+        btn.textContent = '▶';
+        progressEl.classList.remove('active');
+        progressBar.style.width = '0%';
+        if (progressInterval) clearInterval(progressInterval);
+        currentAudio = null;
+        currentBtn = null;
+      };
+    }
+
+    // Initial rendern
+    filterCards();
+  </script>
+</body>
+</html>
