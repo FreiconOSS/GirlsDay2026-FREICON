@@ -1917,7 +1917,7 @@
             el.style.transition = 'transform 0.15s';
             el.style.transform = 'scale(1.2)';
             const pauseStart = performance.now();
-            // Gesamte Pause: max ~2.5 Sekunden
+            // Gesamte Pause: ~5 Sekunden
             setTimeout(() => {
               el.style.transform = 'scale(1.2) scaleX(-1)';
               setTimeout(() => {
@@ -1928,9 +1928,9 @@
                   el.style.transition = 'opacity 0.3s';
                   pauseDuration += performance.now() - pauseStart;
                   paused = false;
-                }, 400);
-              }, 400);
-            }, 600);
+                }, 1200);
+              }, 1200);
+            }, 1600);
           }
 
           if (!paused) {
