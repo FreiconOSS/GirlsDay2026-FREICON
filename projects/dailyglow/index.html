@@ -817,11 +817,27 @@
   <!-- Externe Content-Dateien -->
   <script src="content.js"></script>
   <script src="stories-mut.js"></script>
+  <script src="stories-trost.js"></script>
+  <script src="stories-ablenkung.js"></script>
+  <script src="stories-ruhe.js"></script>
+  <script src="stories-gut.js"></script>
 
   <script>
     // Geschichten aus den Story-Dateien einfügen
     if (typeof storiesMut !== 'undefined') {
       addStories({ nichtgut: { mut: storiesMut } });
+    }
+    if (typeof storiesTost !== 'undefined') {
+      addStories({ nichtgut: { trost: storiesTost } });
+    }
+    if (typeof storiesAblenkung !== 'undefined') {
+      addStories({ nichtgut: { ablenkung: storiesAblenkung } });
+    }
+    if (typeof storiesRuhe !== 'undefined') {
+      addStories({ nichtgut: { ruhe: storiesRuhe } });
+    }
+    if (typeof storiesGut !== 'undefined') {
+      addStories({ gut: storiesGut });
     }
     // === State — hier merken wir uns die Auswahl ===
     let state = {
