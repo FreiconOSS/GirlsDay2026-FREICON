@@ -522,3 +522,35 @@ const content = {
       }
     }
   },
+
+  // Geschichten werden aus stories.js geladen
+  geschichte: {
+    gut: {
+      inspiration: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] },
+      energie: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] },
+      freude: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] },
+      dankbarkeit: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] }
+    },
+    nichtgut: {
+      mut: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] },
+      trost: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] },
+      ablenkung: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] },
+      ruhe: { fantasy: [], krimi: [], scifi: [], abenteuer: [], lustig: [] }
+    }
+  }
+};
+
+// Geschichten nachträglich einfügen (aus stories.js)
+function addStories(storiesData) {
+  for (const mood of ['gut', 'nichtgut']) {
+    if (!storiesData[mood]) continue;
+    for (const need of Object.keys(storiesData[mood])) {
+      if (!content.geschichte[mood][need]) continue;
+      for (const genre of Object.keys(storiesData[mood][need])) {
+        if (storiesData[mood][need][genre]) {
+          content.geschichte[mood][need][genre].push(...storiesData[mood][need][genre]);
+        }
+      }
+    }
+  }
+}

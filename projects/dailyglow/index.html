@@ -814,7 +814,15 @@
 
   </div>
 
+  <!-- Externe Content-Dateien -->
+  <script src="content.js"></script>
+  <script src="stories-mut.js"></script>
+
   <script>
+    // Geschichten aus den Story-Dateien einfügen
+    if (typeof storiesMut !== 'undefined') {
+      addStories({ nichtgut: { mut: storiesMut } });
+    }
     // === State — hier merken wir uns die Auswahl ===
     let state = {
       format: null,    // 'spruch' oder 'geschichte'
@@ -1003,156 +1011,15 @@
       }
     });
 
-    // === Sprüche & Geschichten ===
-    const content = {
-      spruch: {
-        gut: {
-          inspiration: {
-            fantasy: [
-              `«Jeder Zauberer hat einmal als Träumer angefangen." ✨`,
-              `«Die mächtigste Magie liegt in deiner Vorstellungskraft." 🌙`
-            ],
-            krimi: [
-              `«Das größte Rätsel, das du lösen kannst, bist du selbst." 🔍`,
-              `«Jeder Hinweis in deinem Leben führt dich zum nächsten Kapitel." 🗝️`
-            ],
-            scifi: [
-              `«Die Zukunft gehört denen, die an die Schönheit ihrer Träume glauben." 🚀`,
-              `«In einem unendlichen Universum sind auch deine Möglichkeiten unendlich." 🌌`
-            ],
-            abenteuer: [
-              `«Das Leben ist entweder ein großes Abenteuer — oder gar nichts." ⛰️`,
-              `«Jeder Gipfel beginnt mit dem ersten Schritt." 🏔️`
-            ],
-            lustig: [
-              `«Lächle! Dein Gesicht weiß nicht, was dein Kopf sich ausdenkt." 😄`,
-              `«Das Leben ist zu kurz für schlechte Laune und langweilige Socken." 🧦✨`
-            ]
-          },
-          energie: {
-            fantasy: [`«Du trägst die Kraft eines Drachen in dir — lass sie frei!" 🐉`],
-            krimi: [`«Wie ein Detektiv: Gib niemals auf, bis du die Lösung gefunden hast." 🔎`],
-            scifi: [`«Deine Energie kann Welten verändern — auch diese." ⚡🌍`],
-            abenteuer: [`«Abenteurer werden nicht müde — sie laden nach und starten neu!" 🏃‍♀️`],
-            lustig: [`«Du bist wie eine Batterie auf 200% — und das ist großartig!" 🔋😂`]
-          },
-          freude: {
-            fantasy: [`«Im Märchen gibt es immer ein Happy End — und in deinem Leben auch." 🏰`],
-            krimi: [`«Das Geheimnis des Glücks? Du hast es schon gelöst!" 🕵️‍♀️✨`],
-            scifi: [`«In jeder Galaxie leuchtet ein Stern nur für dich." ⭐`],
-            abenteuer: [`«Jeder Tag ist ein neues Abenteuer — und heute wird großartig!" 🌅`],
-            lustig: [`«Wenn das Leben dir Zitronen gibt, mach Konfetti draus!" 🎉🍋`]
-          },
-          dankbarkeit: {
-            fantasy: [`«Dankbarkeit ist die schönste Magie — sie verwandelt alles in Gold." ✨💛`],
-            krimi: [`«Das wertvollste Beweisstück? Die kleinen Momente die dich lächeln lassen." 🔍💛`],
-            scifi: [`«In all den Sternen im Universum — du bist der hellste." 🌟`],
-            abenteuer: [`«Das größte Abenteuer ist es, das Glück im Kleinen zu finden." 🌿`],
-            lustig: [`«Sei dankbar für Montage — ohne sie wüssten wir Freitage nicht zu schätzen!" 😄`]
-          }
-        },
-        nichtgut: {
-          mut: {
-            fantasy: [`«Selbst der kleinste Hobbit kann den Lauf der Welt verändern." 🌟`],
-            krimi: [`«Du bist stärker als jedes Rätsel, das das Leben dir stellt." 💪`],
-            scifi: [`«Auch Astronauten haben Angst — sie fliegen trotzdem." 🚀`],
-            abenteuer: [`«Der mutigste Schritt ist der, den du machst wenn du Angst hast." ⛰️`],
-            lustig: [`«Mut ist, wenn man Angst hat und es trotzdem tut. Wie Mathe." 😅💪`]
-          },
-          trost: {
-            fantasy: [`«Nach jedem dunklen Wald kommt eine Lichtung. Immer." 🌿✨`],
-            krimi: [`«Jeder Fall wird gelöst — und jede schwere Zeit geht vorbei." 🕊️`],
-            scifi: [`«Auch nach der dunkelsten Nacht geht ein neuer Stern auf." 🌅`],
-            abenteuer: [`«Jeder Sturm geht vorbei — und danach scheint die Sonne umso schöner." 🌈`],
-            lustig: [`«Wenn alles schief geht, leg dich hin — dann kann nichts mehr umfallen." 😊`]
-          },
-          ablenkung: {
-            fantasy: [`«Schließ die Augen und stell dir vor: Du reitest auf einem Drachen durch die Wolken." 🐉☁️`],
-            krimi: [`«Stell dir vor, du bist die beste Detektivin der Welt — welchen Fall löst du heute?" 🔍`],
-            scifi: [`«Irgendwo da draußen gibt es einen Planeten, auf dem alles aus Schokolade ist." 🍫🪐`],
-            abenteuer: [`«Stell dir vor, du öffnest eine Tür — und dahinter liegt ein ganz neues Abenteuer." 🚪✨`],
-            lustig: [`«Wusstest du, dass Otter beim Schlafen Händchen halten? Du bist willkommen." 🦦💛`]
-          },
-          ruhe: {
-            fantasy: [`«Wie ein Zauberwald in der Dämmerung: Alles darf jetzt still sein." 🌲🌙`],
-            krimi: [`«Auch der beste Detektiv braucht mal eine Pause. Und du auch." 🕵️‍♀️☕`],
-            scifi: [`«Im Weltraum ist es still. Nimm dir einen Moment und lass alles los." 🌌`],
-            abenteuer: [`«Leg dich ans Ufer und schau den Wolken zu. Das Abenteuer wartet noch." 🏞️`],
-            lustig: [`«Atme ein. Atme aus. Und dann gönn dir ein Stück Kuchen." 🍰😌`]
-          }
-        }
-      },
-      geschichte: {
-        gut: {
-          inspiration: {
-            fantasy: [`🧙 <strong>Die Sternensammlerin</strong><br><br>Es war einmal ein Mädchen, das sammelte herabgefallene Sterne. Jeden Abend legte sie sich ins hohe Gras und wartete. Wenn ein Stern fiel, fing sie ihn behutsam auf und steckte ihn in ein Glasgefäß.<br><br>«Warum sammelst du sie?", fragte der Mond eines Nachts.<br><br>«Weil jeder Stern ein Traum ist, den jemand vergessen hat", antwortete sie. «Und ich bringe sie zurück."<br><br>An dem Abend leuchteten die Gläser so hell, dass das ganze Dorf stehen blieb und staunte. Und jeder, der hineinschaute, erinnerte sich plötzlich an seinen schönsten Traum. ✨`],
-            krimi: [`🔍 <strong>Der verschwundene Lächeln-Dieb</strong><br><br>Kommissarin Klara stand vor einem Rätsel: In der ganzen Stadt verschwanden die Lächeln der Menschen. Einer nach dem anderen wurde ernst.<br><br>Sie folgte den Spuren — Kaffeetassen ohne Herzchen im Schaum, verstummte Witze, leere Schaukeln auf Spielplätzen.<br><br>Dann fand sie den Hinweis: eine Spur aus Glitzer, die in die Bibliothek führte. Dort saß ein kleiner Junge und las ein Buch — und in dem Buch waren alle Lächeln gesammelt.<br><br>«Ich wollte sie aufbewahren", sagte er schüchtern, «damit niemand sie verliert."<br><br>Klara lächelte. «Weißt du was? Lächeln werden mehr, wenn man sie teilt." 😊`],
-            scifi: [`🚀 <strong>Frequenz 7</strong><br><br>Auf der Raumstation Horizon empfing Mila ein Signal. Nicht von der Erde. Nicht von einem bekannten Planeten. Es kam von überall gleichzeitig.<br><br>«Was sagt es?", fragte ihr Co-Pilot.<br><br>Mila lauschte. Dann lächelte sie. «Es sagt: Du bist nicht allein. Du warst es nie."<br><br>Sie blickte aus dem Fenster in die unendliche Weite des Alls — und zum ersten Mal fühlte es sich nicht leer an, sondern voller Möglichkeiten. 🌌`],
-            abenteuer: [`⛰️ <strong>Der höchste Punkt</strong><br><br>Lina hatte beschlossen den höchsten Berg ihrer Insel zu besteigen. «Da oben", sagte ihre Oma, «findest du etwas Besonderes."<br><br>Der Aufstieg war steil, der Wind stark. Dreimal wollte sie umkehren. Aber sie ging weiter.<br><br>Oben angekommen sah sie... nichts Besonderes. Nur die Welt von oben.<br><br>Und dann verstand sie: Das Besondere war nicht oben. Das Besondere war, dass sie es geschafft hatte. 🏔️`],
-            lustig: [`😂 <strong>Der Wunschfisch</strong><br><br>Als Tim einen goldenen Fisch aus dem Teich zog, sagte der: «Ich erfülle dir drei Wünsche!"<br><br>Tim überlegte lange. «Ich wünsche mir... mehr Wünsche!"<br><br>Der Fisch seufzte. «Das sagen alle. Okay, du hast jetzt unendlich viele Wünsche."<br><br>Tim strahlte — und wünschte sich als erstes, dass der Fisch ein Freund zum Reden wird. Sie sitzen bis heute am Teich und lachen. 🐟💛`]
-          },
-          energie: {
-            fantasy: [`🐉 <strong>Das Drachenherz</strong><br><br>Tief im Berg schlief ein Drache. Nicht weil er müde war — sondern weil niemand ihn gerufen hatte.<br><br>Als Maya vor dem Berg stand und rief «Ich brauche Kraft!", öffnete der Drache ein Auge. Dann das andere. Dann grinste er.<br><br>«Kraft?", brummte er. «Die hattest du schon die ganze Zeit. Du musstest nur laut genug rufen." 🔥`],
-            krimi: [`🔎 <strong>Fall Nr. 42</strong><br><br>Detektivin Sara hatte 41 Fälle gelöst. Beim 42. stand sie vor einer verschlossenen Tür — ohne Schlüssel, ohne Hinweis.<br><br>Sie setzte sich hin. Dachte nach. Stand auf. Klopfte einfach an.<br><br>Die Tür ging auf. Dahinter stand jemand und sagte: «Endlich! Ich dachte, du fragst nie." Manchmal ist die Lösung einfacher als man denkt. 🚪`],
-            scifi: [`⚡ <strong>Der Energiekern</strong><br><br>Auf Planet Zenith war die Energie ausgegangen. Alles dunkel. Die Ingenieurin Noa suchte überall — in Maschinen, in Kristallen, in Sternen.<br><br>Dann legte ihre kleine Schwester die Hand auf Noas Herz. «Hier", sagte sie. «Hier ist noch Energie."<br><br>Noa lachte. Und das Lachen war so ansteckend, dass die ganze Station wieder leuchtete. 💡`],
-            abenteuer: [`🏃‍♀️ <strong>Der Startschuss</strong><br><br>Lea stand an der Startlinie. 100 Meter. Alle schauten. Ihr Herz hämmerte.<br><br>«Auf die Plätze. Fertig. Los!"<br><br>Sie rannte. Nicht perfekt. Nicht schnell genug für Gold. Aber sie rannte mit allem was sie hatte.<br><br>Am Ziel angekommen war sie Letzte. Aber sie war die Einzige, die gelächelt hat. Denn sie war gerannt. 🏅`],
-            lustig: [`🔋 <strong>Die Energiemaschine</strong><br><br>Professor Krümel erfand eine Maschine, die aus Lachen Energie macht. Er stellte sie auf den Marktplatz.<br><br>Erst passierte nichts. Dann erzählte ein Kind einen Witz. Jemand lachte. Dann noch jemand. Dann alle.<br><br>Die Maschine brummte so laut, dass sie abhob und durch die Stadt flog — angetrieben von purem Gelächter. 🤣🚀`]
-          },
-          freude: {
-            fantasy: [`🏰 <strong>Der Freudenwald</strong><br><br>Im Freudenwald blühten die Bäume nicht im Frühling — sondern immer dann, wenn jemand lachte. Je lauter das Lachen, desto bunter die Blüten.<br><br>Eines Tages kam ein Mädchen, das lange nicht gelacht hatte. Sie setzte sich unter einen kahlen Baum.<br><br>Ein Eichhörnchen fiel von einem Ast. Direkt in einen Pilz. Sah total verdattert aus.<br><br>Sie kicherte. Dann lachte sie. Der Baum explodierte in Farben. 🌸😄`],
-            krimi: [`🕵️‍♀️ <strong>Wer hat die Party gestohlen?</strong><br><br>In der Schule sollte eine Party stattfinden. Aber am Morgen war alles weg: Deko, Kuchen, Musik — verschwunden!<br><br>Mia untersuchte den Fall. Die Spuren führten in die Turnhalle. Sie öffnete die Tür —<br><br>«ÜBERRASCHUNG!" Alle standen da. Denn die Party war nie gestohlen worden. Sie war nur umgezogen. Und jetzt war sie zehnmal besser. 🎉`],
-            scifi: [`⭐ <strong>Planet Freude</strong><br><br>Kapitänin Zoe entdeckte einen Planeten, auf dem alle ständig feierten. «Habt ihr keine Probleme?", fragte sie.<br><br>«Klar", sagte ein Bewohner. «Aber wir haben beschlossen, trotzdem zu feiern. Das macht die Probleme kleiner und uns größer."<br><br>Zoe blieb drei Tage. Als sie zurückkam, feierte sie weiter. 🪐🎊`],
-            abenteuer: [`🌅 <strong>Die Freude am Weg</strong><br><br>Zwei Wanderer gingen los. Der eine rannte zum Ziel. Der andere blieb ständig stehen — für Blumen, Schmetterlinge, Aussichten.<br><br>Am Gipfel trafen sie sich. «Ich war schneller", sagte der Erste.<br><br>«Stimmt", sagte die Zweite. «Aber ich hatte mehr Spaß." 🦋`],
-            lustig: [`🍋 <strong>Die Lach-Maschine</strong><br><br>Tim baute eine Maschine, die automatisch Witze erzählt. Problem: Sie lachte selber so laut über ihre eigenen Witze, dass niemand die Pointe hören konnte.<br><br>Am Ende lachten alle — nicht über die Witze, sondern über die Maschine.<br><br>Tim nannte das einen vollen Erfolg. 🤖😂`]
-          },
-          dankbarkeit: {
-            fantasy: [`💛 <strong>Der Dankbarkeits-Zauberer</strong><br><br>Der Zauberer Finn konnte nur einen einzigen Zauber: Er konnte Menschen zeigen, was sie schon hatten. Keine Diamanten, keine Drachen — nur das, was schon da war.<br><br>Und jedes Mal sagten die Menschen: «Oh. Das ist ja wunderschön. Warum hab ich das nie gesehen?"<br><br>Finn lächelte. «Weil du nie hingeschaut hast." ✨`],
-            krimi: [`🔍 <strong>Der Fall der verschwundenen Freude</strong><br><br>Lena suchte überall nach dem Glück. Unter dem Bett, im Schrank, in der Schublade. Nichts.<br><br>Dann setzte sie sich erschöpft hin. Schaute aus dem Fenster. Sah die Sonne. Hörte Vögel. Roch frischen Kuchen von nebenan.<br><br>«Fall gelöst", flüsterte sie. Es war die ganze Zeit da. 🌞`],
-            scifi: [`🌟 <strong>Die Dankbarkeits-Frequenz</strong><br><br>Wissenschaftlerin Ada entdeckte eine Frequenz, die nur hörbar war wenn man dankbar war. Je dankbarer man wurde, desto schöner klang sie.<br><br>Sie nannte sie «Frequenz Herz" und sendete sie ins All.<br><br>Drei Planeten antworteten. Alle spielten dieselbe Melodie. 💛🎵`],
-            abenteuer: [`🌿 <strong>Der kleine Schatz</strong><br><br>Die Schatzkarte führte nicht zu Gold. Sie führte zu einer Wiese. Mit Gänseblümchen.<br><br>«Das soll der Schatz sein?!", rief Max enttäuscht.<br><br>Dann legte er sich hin. Sah in den Himmel. Und verstand: Manchmal ist der größte Schatz einfach ein Moment der Ruhe. 🌼`],
-            lustig: [`🧦 <strong>Die dankbare Socke</strong><br><br>Eine Socke lag unter dem Bett. Vergessen. Allein. Aber sie war dankbar.<br><br>«Immerhin", dachte sie, «bin ich die kuscheligste Socke im ganzen Haus."<br><br>Eines Tages wurde sie gefunden. Und getragen. Und es war der wärmste Tag seit langem — für alle. 🧦💛`]
-          }
-        },
-        nichtgut: {
-          mut: {
-            fantasy: [`🌟 <strong>Die Mutprobe</strong><br><br>Vor dem dunklen Wald stand ein Schild: «Nur die Mutigen dürfen eintreten."<br><br>Ella zitterte. Aber sie ging trotzdem. Im Wald war es... gar nicht so dunkel. Überall leuchteten Glühwürmchen. Und am Ende stand ein zweites Schild:<br><br>«Mutig bist du nicht, weil du keine Angst hast. Mutig bist du, weil du trotzdem gegangen bist." 🌲✨`],
-            krimi: [`💪 <strong>Fall: Unsichtbarer Mut</strong><br><br>Kommissarin Kim sollte den Mut der Stadt finden — er war verschwunden. Alle hatten plötzlich Angst.<br><br>Sie suchte überall. Dann sah sie ein kleines Mädchen, das ein anderes Kind tröstete. Ein Junge, der trotz Regen zur Schule ging. Eine Oma, die alleine tanzte.<br><br>«Der Mut war nie weg", notierte Kim. «Er war nur leise." 🕵️‍♀️💛`],
-            scifi: [`🚀 <strong>Die mutige Astronautin</strong><br><br>Noa sollte als erste Mensch einen neuen Planeten betreten. Die Tür der Rakete öffnete sich. Stille.<br><br>Ihr Herz raste. Ihre Knie zitterten. Aber dann dachte sie an alle, die an sie glaubten.<br><br>Sie machte einen Schritt. Dann noch einen. Und der Planet war wunderschön.<br><br>Manchmal muss man einfach den ersten Schritt machen — auch wenn man Angst hat. 🪐`],
-            abenteuer: [`⛰️ <strong>Der Weg durch den Sturm</strong><br><br>Mitten auf dem Berg kam der Sturm. Lea konnte nicht weiter. Konnte nicht zurück.<br><br>Sie setzte sich hin. Atmete. Wartete.<br><br>Der Sturm ging vorbei. Und als sie aufstand, sah sie den schönsten Sonnenaufgang ihres Lebens.<br><br>Manchmal muss man den Sturm einfach aushalten. Danach wird es schön. 🌅`],
-            lustig: [`😅 <strong>Der Angst-Monster-Check</strong><br><br>Unterm Bett lebte ein Monster. Es sah furchteinflößend aus. Große Augen. Scharfe Zähne.<br><br>Eines Nachts schaute Mia drunter. Das Monster erschrak so sehr, dass es schrie.<br><br>«DU hast Angst vor MIR?!", fragte Mia.<br><br>«Na klar!", sagte das Monster. «Du bist viel mutiger als ich!"<br><br>Sie wurden beste Freunde. 👻💛`]
-          },
-          trost: {
-            fantasy: [`🌿 <strong>Der Trauerwald</strong><br><br>Im Trauerwald regnete es immer. Aber nicht normaler Regen — es waren die Tränen aller, die traurig waren.<br><br>Und weißt du was? Aus jeder Träne wuchs eine Blume. Der Wald war der schönste Ort der Welt.<br><br>Denn aus Traurigkeit kann etwas Wunderschönes wachsen. Gib ihr Zeit. 🌸`],
-            krimi: [`🕊️ <strong>Der letzte Hinweis</strong><br><br>Lena hatte alles durchsucht. Jeden Raum, jede Schublade. Nichts half.<br><br>Dann fand sie in ihrer eigenen Jackentasche einen Zettel. Da stand: «Du bist genug. Genau so wie du bist."<br><br>Sie hatte ihn selbst geschrieben. Vor langer Zeit. Als Erinnerung für genau diesen Moment. 💌`],
-            scifi: [`🌅 <strong>Die Nachricht vom Stern</strong><br><br>Jede Nacht blickte Mila zum hellsten Stern. Eines Nachts blinkte er. Einmal. Zweimal. Dreimal.<br><br>Sie entschlüsselte die Botschaft: «Ich sehe dich. Du bist nicht allein."<br><br>Und auch wenn es nur ein Stern war — es reichte, um sich besser zu fühlen. Weil jemand zuschaut. Immer. ⭐`],
-            abenteuer: [`🌈 <strong>Nach dem Regen</strong><br><br>Es hatte tagelang geregnet. Alles grau, alles nass, alles schwer.<br><br>Dann, ganz plötzlich: ein Lichtstrahl durch die Wolken. Und dahinter der schönste Regenbogen, den Lina je gesehen hatte.<br><br>Sie stand da und weinte. Aber diesmal vor Freude. Weil sie wusste: Nach dem Regen kommt immer der Regenbogen. 🌈`],
-            lustig: [`😊 <strong>Die Trost-Katze</strong><br><br>Wenn es Tim schlecht ging, kam immer eine Katze. Einfach so. Sie legte sich auf seinen Schoß und schnurrte.<br><br>Sie löste keine Probleme. Sie gab keine Ratschläge. Sie schnurrte einfach.<br><br>Und irgendwie war das genau das Richtige. Manchmal braucht man keine Worte — nur ein warmes Schnurren. 🐱💛`]
-          },
-          ablenkung: {
-            fantasy: [`🐉 <strong>Die Traumreise</strong><br><br>Schließ die Augen. Stell dir vor: Du stehst auf einer Wolke. Unter dir liegt eine Welt aus buntem Glas. Drachen fliegen vorbei und winken dir zu.<br><br>Einer landet neben dir. «Wohin?", fragt er.<br><br>«Irgendwohin, wo alles glitzert", sagst du.<br><br>Er grinst. «Halt dich fest." Und los geht's. ☁️✨`],
-            krimi: [`🔍 <strong>Das Rätsel des Tages</strong><br><br>Hier ist ein Rätsel für dich:<br><br>Ich bin leicht wie eine Feder, aber kein Mensch kann mich lange halten. Was bin ich?<br><br>...<br><br>Die Antwort: Der Atem. 🌬️<br><br>Und jetzt atme einmal tief ein. Und aus. Siehst du? Schon besser. 💛`],
-            scifi: [`🪐 <strong>Planet Schokolade</strong><br><br>In Galaxie 7B gibt es einen Planeten, auf dem alles aus Schokolade ist. Die Berge: Vollmilch. Die Flüsse: Karamell. Die Bäume: weiße Schokolade mit Nüssen.<br><br>Die Bewohner? Kleine flauschige Wesen, die den ganzen Tag naschen und kichern.<br><br>Klingt gut, oder? Manchmal hilft es, sich eine bessere Welt vorzustellen — auch wenn sie aus Schokolade ist. 🍫😋`],
-            abenteuer: [`🚪 <strong>Die Tür im Garten</strong><br><br>Hinter der alten Mauer im Garten war eine Tür. Klein, bunt bemalt, halb versteckt.<br><br>Du öffnest sie und dahinter liegt... ein Strand! Warmer Sand, türkises Wasser, eine Hängematte zwischen Palmen.<br><br>Du legst dich rein. Schaukelst. Und für einen Moment ist alles gut. 🏝️`],
-            lustig: [`🦦 <strong>Wusstest du schon?</strong><br><br>Wusstest du, dass Otter beim Schlafen Händchen halten, damit sie nicht auseinander treiben? 🦦🤝🦦<br><br>Oder dass Kühe beste Freundinnen haben und traurig werden, wenn sie getrennt werden? 🐄💛🐄<br><br>Oder dass Delfine sich gegenseitig Namen geben? 🐬<br><br>Die Welt ist voller süßer Dinge. Und du bist eins davon. 💛`]
-          },
-          ruhe: {
-            fantasy: [`🌲 <strong>Der Ruhewald</strong><br><br>Es gibt einen Wald, in dem es immer still ist. Kein Wind. Kein Lärm. Nur das leise Summen von Glühwürmchen.<br><br>In der Mitte steht ein Baum mit weichen Blättern wie Kissen. Man setzt sich hin, lehnt sich an, und der Baum flüstert: «Alles darf jetzt ruhen."<br><br>Schließ die Augen. Du bist dort. 🌙✨`],
-            krimi: [`☕ <strong>Pause im Büro</strong><br><br>Detektivin Emma hatte drei Fälle gleichzeitig. Akten überall. Telefon klingelte. Alles dringend.<br><br>Sie stand auf. Machte das Licht aus. Setzte sich ans Fenster. Trank einen Tee.<br><br>Fünf Minuten. Stille.<br><br>Dann ging sie zurück. Und plötzlich war alles klarer. Manchmal ist eine Pause die beste Ermittlungsmethode. ☕🕵️‍♀️`],
-            scifi: [`🌌 <strong>Die Stille des Alls</strong><br><br>Im Weltraum ist es still. Absolut still. Keine Geräusche. Nur du und die Sterne.<br><br>Astronautin Zoe schwebte durchs Fenster und schaute hinaus. Die Erde, klein und blau. So friedlich von hier oben.<br><br>«Von hier sieht alles einfacher aus", dachte sie.<br><br>Und für einen Moment war es das auch. 🌍✨`],
-            abenteuer: [`🏞️ <strong>Am Fluss</strong><br><br>Am Ende des Wanderwegs lag ein stiller Fluss. Das Wasser glitzerte. Vögel sangen.<br><br>Lea setzte sich ans Ufer. Steckte die Füße ins kühle Wasser. Und tat... nichts.<br><br>Einfach da sein. Einfach atmen. Einfach zuschauen wie das Wasser fließt.<br><br>Manchmal ist das genug. Mehr als genug. 💧`],
-            lustig: [`🍰 <strong>Das Ruhe-Rezept</strong><br><br>Dr. Schnurr (eine Katze, die Ärztin wurde) verschreibt bei Stress folgendes Rezept:<br><br>1x tief einatmen 🌬️<br>1x Lieblingslied summen 🎵<br>1x jemanden umarmen (oder ein Kissen) 🤗<br>1x Stück Kuchen essen 🍰<br><br>Nebenwirkungen: Lächeln, Wärme im Bauch, spontanes Glücklichsein.<br><br>Kein Rezept nötig. Einfach machen. 😸`]
-          }
-        }
-      }
-    };
-
-    // === Ergebnis anzeigen ===
+    // === Ergebnis anzeigen (content kommt aus content.js + stories-*.js) ===
     function showResult() {
       const { format, mood, need, genre } = state;
 
       // Inhalte laden
       const pool = content[format]?.[mood]?.[need]?.[genre];
-      const text = pool ? pool[Math.floor(Math.random() * pool.length)] : getFallback(format);
+      const text = pool && pool.length > 0
+        ? pool[Math.floor(Math.random() * pool.length)]
+        : getFallback(format);
 
       // Genre-Label
       const genreLabels = {
