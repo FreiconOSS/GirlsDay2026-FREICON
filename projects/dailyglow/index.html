@@ -493,6 +493,34 @@
       box-shadow: 0 6px 25px rgba(167, 139, 250, 0.4);
     }
 
+    .btn-tts {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #a78bfa, #c084fc);
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(167,139,250,0.3);
+    }
+
+    .btn-tts:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(167,139,250,0.4);
+    }
+
+    .btn-tts.playing {
+      background: linear-gradient(135deg, #ef5350, #e53935);
+      animation: pulseTTS 1s ease infinite;
+    }
+
+    @keyframes pulseTTS {
+      0%,100% { box-shadow: 0 0 0 0 rgba(239,83,80,0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(239,83,80,0); }
+    }
+
     /* Deko-Elemente */
     .deco-circle {
       position: fixed;
@@ -628,6 +656,45 @@
       transform: scale(1.15);
     }
 
+    /* Soundboard-Schallplatte */
+    .soundboard-vinyl {
+      position: fixed;
+      top: 1rem;
+      right: 4rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.3);
+      background: radial-gradient(circle at center, #555 0%, #555 15%, #222 16%, #222 30%, #333 31%, #333 34%, #222 35%, #222 48%, #333 49%, #333 52%, #222 53%, #222 66%, #333 67%, #333 70%, #222 71%, #222 84%, #333 85%, #333 88%, #111 89%);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      z-index: 100;
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .soundboard-vinyl::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #e53935;
+      border-radius: 50%;
+      border: 2px solid #333;
+    }
+
+    .soundboard-vinyl:hover {
+      animation: spin 1.5s linear infinite;
+      transform: scale(1.1);
+    }
+
+    @keyframes spin {
+      from { transform: scale(1.1) rotate(0deg); }
+      to { transform: scale(1.1) rotate(360deg); }
+    }
+
     .theme-dropdown {
       position: fixed;
       top: 4rem;
@@ -696,6 +763,7 @@
 
   <!-- Theme-Picker -->
   <button class="theme-picker-btn" onclick="toggleThemeMenu()" title="Farbthema wechseln">🎨</button>
+  <a href="soundboard.html" class="soundboard-vinyl" title="Soundboard"></a>
   <div class="theme-dropdown" id="theme-dropdown">
     <button class="theme-option active" data-theme="kirsch" onclick="setTheme('kirsch')">
       <span class="theme-swatch" style="background: linear-gradient(135deg, #ffecd2, #f8a4c8);"></span> Kirschblüte 🌸
@@ -745,7 +813,6 @@
       <h1 class="app-title">DailyGlow</h1>
       <p class="app-subtitle">Dein täglicher Motivations-Begleiter</p>
       <button class="start-btn" onclick="goTo('screen-format')">Los geht's</button>
-      <a href="soundboard.html" class="soundboard-link">🔊 Soundboard</a>
     </div>
 
     <!-- ============ SCREEN 1: Format wählen ============ -->
@@ -1011,6 +1078,7 @@
         <span class="result-genre-tag" id="result-genre-tag"></span>
         <div class="result-content" id="result-text"></div>
         <div class="result-actions">
+          <button class="btn-tts" id="btn-tts" onclick="playTTS()" style="display:none">🔊 Vorlesen</button>
           <button class="btn-again" onclick="resetApp()">🔄 Nochmal</button>
         </div>
       </div>
@@ -1025,6 +1093,7 @@
   <script src="stories-ablenkung.js"></script>
   <script src="stories-ruhe.js"></script>
   <script src="stories-gut.js"></script>
+  <script src="tts-map.js"></script>
 
   <script>
     // Geschichten aus den Story-Dateien einfügen
@@ -1277,7 +1346,54 @@
       resultEl.innerHTML = text;
       resultEl.className = format === 'spruch' ? 'result-content spruch' : 'result-content';
 
+      // TTS-Button anzeigen wenn Audio vorhanden
+      const ttsBtn = document.getElementById('btn-tts');
+      const ttsFile = (typeof findTTS === 'function') ? findTTS(text) : null;
+      if (ttsFile) {
+        ttsBtn.style.display = '';
+        ttsBtn.dataset.src = ttsFile;
+        ttsBtn.classList.remove('playing');
+        ttsBtn.textContent = '🔊 Vorlesen';
+      } else {
+        ttsBtn.style.display = 'none';
+      }
+
       goTo('screen-result');
+    }
+
+    // TTS abspielen
+    let ttsAudio = null;
+    function playTTS() {
+      const btn = document.getElementById('btn-tts');
+      
+      if (ttsAudio) {
+        ttsAudio.pause();
+        ttsAudio.currentTime = 0;
+        ttsAudio = null;
+        btn.classList.remove('playing');
+        btn.textContent = '🔊 Vorlesen';
+        return;
+      }
+
+      const src = btn.dataset.src;
+      if (!src) return;
+      
+      ttsAudio = new Audio(src);
+      ttsAudio.volume = 0.8;
+      btn.classList.add('playing');
+      btn.textContent = '⏹ Stopp';
+      
+      ttsAudio.play().catch(() => {
+        btn.classList.remove('playing');
+        btn.textContent = '🔊 Vorlesen';
+        ttsAudio = null;
+      });
+      
+      ttsAudio.onended = () => {
+        btn.classList.remove('playing');
+        btn.textContent = '🔊 Vorlesen';
+        ttsAudio = null;
+      };
     }
 
     function getFallback(format) {
@@ -1289,6 +1405,7 @@
 
     // === App zurücksetzen ===
     function resetApp() {
+      if (ttsAudio) { ttsAudio.pause(); ttsAudio = null; }
       state = { format: null, mood: null, reason: null, need: null, genre: null };
       goTo('screen-start');
     }
