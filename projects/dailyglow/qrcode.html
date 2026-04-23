@@ -222,22 +222,19 @@
   <div class="toast" id="toast">✅ Link kopiert!</div>
 
   <!-- QR-Code Library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script>
     const APP_URL = 'https://freiconoss.github.io/GirlsDay2026-FREICON/projects/dailyglow/';
 
     // QR-Code generieren
     const container = document.getElementById('qr-container');
-    const canvas = document.createElement('canvas');
-    container.appendChild(canvas);
-
-    QRCode.toCanvas(canvas, APP_URL, {
+    new QRCode(container, {
+      text: APP_URL,
       width: 250,
-      margin: 2,
-      color: {
-        dark: '#3a3a5c',
-        light: '#ffffff'
-      }
+      height: 250,
+      colorDark: '#3a3a5c',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
     });
 
     function copyURL() {
