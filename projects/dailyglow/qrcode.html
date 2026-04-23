@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📱 DailyGlow — QR-Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #ffecd2, #fcb69f, #f8a4c8, #f5c2e7);
+      background-size: 200% 200%;
+      animation: bg 20s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      color: #3a3a5c;
+    }
+    @keyframes bg { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    .back-link {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      text-decoration: none;
+      color: #3a3a5c;
+      font-weight: 600;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .back-link:hover { opacity: 1; }
+
+    .card {
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 28px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+
+    .emoji { font-size: 3rem; margin-bottom: 0.8rem; }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+      color: #3a3a5c;
+    }
+
+    .subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: #7e7e9a;
+      margin-bottom: 1.5rem;
+    }
+
+    .qr-container {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .qr-container canvas,
+    .qr-container img {
+      display: block;
+    }
+
+    .url-display {
+      font-size: 0.7rem;
+      color: #7e7e9a;
+      word-break: break-all;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255,255,255,0.4);
+      border-radius: 10px;
+      font-family: monospace;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 0.7rem 1.5rem;
+      border-radius: 100px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      color: white;
+      box-shadow: 0 4px 15px rgba(124,58,237,0.3);
+    }
+    .btn-print:hover {
+      box-shadow: 0 6px 20px rgba(124,58,237,0.4);
+    }
+
+    .btn-copy {
+      background: rgba(255,255,255,0.6);
+      color: #3a3a5c;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .btn-copy:hover {
+      background: rgba(255,255,255,0.8);
+    }
+
+    .btn-back {
+      background: rgba(255,255,255,0.4);
+      color: #7e7e9a;
+      border: 1px solid rgba(0,0,0,0.05);
+      text-decoration: none;
+    }
+
+    .hint {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #b0b0c8;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 200;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Druck-Styles */
+    @media print {
+      body {
+        background: white !important;
+        animation: none !important;
+        padding: 2rem;
+      }
+      .back-link,
+      .actions,
+      .hint,
+      .toast { display: none !important; }
+      .card {
+        background: white !important;
+        backdrop-filter: none !important;
+        border: 2px solid #eee;
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .qr-container {
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link">← Zurück</a>
+
+  <div class="card">
+    <div class="emoji">📱</div>
+    <h1>DailyGlow teilen</h1>
+    <p class="subtitle">Scanne den Code mit deinem Handy!</p>
+
+    <div class="qr-container" id="qr-container"></div>
+
+    <div class="url-display">freiconoss.github.io/GirlsDay2026-FREICON/projects/dailyglow/</div>
+
+    <div class="actions">
+      <button class="action-btn btn-print" onclick="window.print()">
+        🖨️ Ausdrucken
+      </button>
+      <button class="action-btn btn-copy" onclick="copyURL()">
+        📋 Link kopieren
+      </button>
+      <a href="index.html" class="action-btn btn-back">
+        ← Zurück zur App
+      </a>
+    </div>
+
+    <p class="hint">💡 Tipp: Ausdrucken und an den Kühlschrank hängen!</p>
+  </div>
+
+  <div class="toast" id="toast">✅ Link kopiert!</div>
+
+  <!-- QR-Code Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script>
+    const APP_URL = 'https://freiconoss.github.io/GirlsDay2026-FREICON/projects/dailyglow/';
+
+    // QR-Code generieren
+    const container = document.getElementById('qr-container');
+    const canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+
+    QRCode.toCanvas(canvas, APP_URL, {
+      width: 250,
+      margin: 2,
+      color: {
+        dark: '#3a3a5c',
+        light: '#ffffff'
+      }
+    });
+
+    function copyURL() {
+      navigator.clipboard.writeText(APP_URL).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+  </script>
+</body>
+</html>

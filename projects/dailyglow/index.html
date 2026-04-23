@@ -540,6 +540,120 @@
     }
 
     /* Deko-Elemente */
+
+    /* Teilen-Button (FAB) */
+    .share-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+    }
+
+    .share-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .share-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(124,58,237,0.5);
+    }
+    .share-btn.open {
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, #ef5350, #e53935);
+    }
+
+    .share-menu {
+      position: absolute;
+      bottom: 0;
+      left: 60px;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-20px);
+      transition: all 0.3s ease;
+    }
+    .share-menu.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(0);
+    }
+
+    .share-option {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+      text-decoration: none;
+    }
+    .share-option:hover {
+      transform: scale(1.15) translateY(-3px);
+    }
+
+    .share-whatsapp { background: #25D366; color: white; }
+    .share-telegram { background: #0088cc; color: white; }
+    .share-email { background: #EA4335; color: white; }
+    .share-copy { background: rgba(255,255,255,0.8); color: #333; backdrop-filter: blur(10px); }
+    .share-qr { background: rgba(255,255,255,0.9); color: #333; }
+
+    .share-tooltip {
+      position: absolute;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: white;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .share-option:hover .share-tooltip { opacity: 1; }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 200;
+      pointer-events: none;
+    }
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
     .deco-circle {
       position: fixed;
       border-radius: 50%;
@@ -782,6 +896,34 @@
   <!-- Theme-Picker -->
   <button class="theme-picker-btn" onclick="toggleThemeMenu()" title="Farbthema wechseln">🎨</button>
   <a href="soundboard.html" class="soundboard-vinyl" title="Soundboard"></a>
+
+  <!-- Teilen-Button -->
+  <div class="share-fab">
+    <button class="share-btn" onclick="toggleShare()" title="Teilen">📤</button>
+    <div class="share-menu" id="share-menu">
+      <a class="share-option share-whatsapp" onclick="shareVia('whatsapp')">
+        💬
+        <span class="share-tooltip">WhatsApp</span>
+      </a>
+      <a class="share-option share-telegram" onclick="shareVia('telegram')">
+        ✈️
+        <span class="share-tooltip">Telegram</span>
+      </a>
+      <a class="share-option share-email" onclick="shareVia('email')">
+        ✉️
+        <span class="share-tooltip">E-Mail</span>
+      </a>
+      <button class="share-option share-copy" onclick="copyLink()">
+        📋
+        <span class="share-tooltip">Link kopieren</span>
+      </button>
+      <a class="share-option share-qr" href="qrcode.html">
+        📱
+        <span class="share-tooltip">QR-Code</span>
+      </a>
+    </div>
+  </div>
+  <div class="copy-toast" id="copy-toast">✅ Link kopiert!</div>
   <div class="theme-dropdown" id="theme-dropdown">
     <button class="theme-option active" data-theme="kirsch" onclick="setTheme('kirsch')">
       <span class="theme-swatch" style="background: linear-gradient(135deg, #ffecd2, #f8a4c8);"></span> Kirschblüte 🌸
@@ -1528,6 +1670,53 @@
         // Reset nach 2 Sekunden
         easterTimer = setTimeout(() => { easterCount = 0; }, 2000);
       }
+    }
+    // === Teilen-Button ===
+    const APP_URL = 'https://freiconoss.github.io/GirlsDay2026-FREICON/projects/dailyglow/';
+    const SHARE_TEXT = '🌟 DailyGlow — Dein täglicher Motivations-Begleiter! Schau mal rein:';
+
+    function toggleShare() {
+      const btn = document.querySelector('.share-btn');
+      const menu = document.getElementById('share-menu');
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.share-fab')) {
+        document.querySelector('.share-btn').classList.remove('open');
+        document.getElementById('share-menu').classList.remove('open');
+      }
+    });
+
+    function shareVia(platform) {
+      const text = encodeURIComponent(SHARE_TEXT);
+      const url = encodeURIComponent(APP_URL);
+      let link = '';
+      
+      switch (platform) {
+        case 'whatsapp':
+          link = `https://wa.me/?text=${text}%20${url}`;
+          break;
+        case 'telegram':
+          link = `https://t.me/share/url?url=${url}&text=${text}`;
+          break;
+        case 'email':
+          link = `mailto:?subject=${encodeURIComponent('🌟 DailyGlow')}&body=${text}%0A%0A${url}`;
+          break;
+      }
+      
+      window.open(link, '_blank');
+      toggleShare();
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(APP_URL).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+      toggleShare();
     }
   </script>
 </body>
