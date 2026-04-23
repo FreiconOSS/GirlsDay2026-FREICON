@@ -945,6 +945,11 @@
   </style>
 </head>
 <body class="theme-kirsch">
+<script>
+  // Theme sofort laden (kein Flackern!)
+  const _t = localStorage.getItem('dailyglow-theme');
+  if (_t) document.body.className = 'theme-' + _t;
+</script>
 
   <!-- Theme-Picker -->
   <button class="theme-picker-btn" onclick="toggleThemeMenu()" title="Farbthema wechseln">🎨</button>
