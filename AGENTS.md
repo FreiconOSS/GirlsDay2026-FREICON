@@ -13,7 +13,7 @@ Libraries via CDN erlaubt (p5.js, Phaser, Confetti, Anime.js).
 
 ## Teilnehmerinnen
 
-- Leni, Marlen, Lotta (Schülerinnen, 11-12 Jahre)
+- Leni, Luise, Lotta (Schülerinnen, 11-12 Jahre)
 - Andreas Schmieder (Softwareentwickler, moderiert)
 
 ## Technische Regeln

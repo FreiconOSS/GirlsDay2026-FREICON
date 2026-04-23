@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/freiconschmieder/Development/GirlsDay/**)",
+      "Bash(git -C /Users/freiconschmieder/Development/GirlsDay/GirlsDay2026 remote -v)"
+    ]
+  }
+}

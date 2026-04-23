@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌟 DailyGlow — Der Plan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fce4ec 0%, #e8eaf6 30%, #e0f7fa 60%, #fff9c4 100%);
+      background-attachment: fixed;
+      color: #3a3a5c;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .header .emoji-big {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #e91e63, #9c27b0, #3f51b5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3rem;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: #7e7e9a;
+      font-weight: 300;
+    }
+
+    .header .team {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .header .team span {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Karten */
+    .card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2 .icon {
+      font-size: 1.6rem;
+    }
+
+    .card p {
+      line-height: 1.7;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    /* Feature Liste */
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .features li .feat-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .features li strong {
+      color: #3a3a5c;
+    }
+
+    /* Gefühlsbaum Visualisierung */
+    .tree-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      margin: 1.5rem 0;
+    }
+
+    .tree-level {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tree-node {
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .tree-connector {
+      width: 2px;
+      height: 20px;
+      background: linear-gradient(to bottom, #ccc, #ddd);
+      position: relative;
+    }
+
+    .tree-connector.wide {
+      width: 60%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #ccc, transparent);
+    }
+
+    .level-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .l1 { background: linear-gradient(135deg, #e91e63, #f06292); }
+    .l2 { background: linear-gradient(135deg, #9c27b0, #ba68c8); }
+    .l3 { background: linear-gradient(135deg, #3f51b5, #7986cb); }
+    .l4 { background: linear-gradient(135deg, #00897b, #4db6ac); }
+    .l-result { background: linear-gradient(135deg, #ff9800, #ffb74d); }
+
+    /* Genre Tags */
+    .genres {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .genre-tag {
+      padding: 0.6rem 1.2rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    }
+
+    .genre-fantasy { background: linear-gradient(135deg, #7c4dff, #b388ff); }
+    .genre-krimi { background: linear-gradient(135deg, #455a64, #78909c); }
+    .genre-scifi { background: linear-gradient(135deg, #0091ea, #40c4ff); }
+    .genre-abenteuer { background: linear-gradient(135deg, #e65100, #ff9e80); }
+    .genre-lustig { background: linear-gradient(135deg, #fbc02d, #fff176); color: #5d4037; }
+
+    /* Nice-to-have */
+    .nice-to-have {
+      opacity: 0.8;
+    }
+
+    .nice-to-have .features li {
+      background: rgba(255, 255, 255, 0.3);
+      border-style: dashed;
+    }
+
+    /* Design Preview */
+    .color-palette {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .color-swatch {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.8);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .color-swatch .color-name {
+      position: absolute;
+      bottom: -1.3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      color: #999;
+      white-space: nowrap;
+    }
+
+    /* Workflow */
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .workflow-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .workflow-step .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .step-1 .step-num { background: linear-gradient(135deg, #e91e63, #f06292); }
+    .step-2 .step-num { background: linear-gradient(135deg, #9c27b0, #ba68c8); }
+    .step-3 .step-num { background: linear-gradient(135deg, #3f51b5, #7986cb); }
+    .step-4 .step-num { background: linear-gradient(135deg, #4caf50, #81c784); }
+    .step-5 .step-num { background: linear-gradient(135deg, #ff9800, #ffb74d); }
+
+    .workflow-step .step-text {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .workflow-step .step-text strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    /* Technik */
+    .tech-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.8rem;
+    }
+
+    .tech-badge {
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* CTA */
+    .cta-card {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(233,30,99,0.1), rgba(63,81,181,0.1));
+      border: 2px solid rgba(233,30,99,0.2);
+    }
+
+    .cta-card h2 {
+      justify-content: center;
+    }
+
+    .cta-card p {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .status-badge {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 100px;
+      background: linear-gradient(135deg, #e91e63, #9c27b0);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(233,30,99,0.4); }
+      50% { box-shadow: 0 0 0 12px rgba(233,30,99,0); }
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <span class="emoji-big">🌟</span>
+      <h1>DailyGlow</h1>
+      <div class="subtitle">Dein täglicher Motivations-Begleiter</div>
+      <div class="team">
+        <span>👩‍💻 Leni</span>
+        <span>👩‍💻 Luise</span>
+        <span>👩‍💻 Lotta</span>
+        <span>🧑‍💻 Andreas</span>
+      </div>
+    </div>
+
+    <!-- Was ist DailyGlow? -->
+    <div class="card">
+      <h2><span class="icon">💡</span> Was ist DailyGlow?</h2>
+      <p>
+        DailyGlow führt dich durch einen <strong>Gefühlsbaum</strong> — Schritt für Schritt, 
+        Frage für Frage. Die App lernt dabei, wie es dir gerade geht und was du brauchst. 
+        Am Ende findest du genau den richtigen <strong>Motivationsspruch</strong> oder eine 
+        <strong>Kurzgeschichte</strong>, die dir den Tag verschönert. 🌈
+      </p>
+      <p style="margin-top: 0.8rem;">
+        Wie ein einfühlsamer Freund, der genau weiß was du gerade brauchst. 💛
+      </p>
+    </div>
+
+    <!-- Der Gefühlsbaum -->
+    <div class="card">
+      <h2><span class="icon">🌳</span> Der Gefühlsbaum — So funktioniert's</h2>
+      <p style="margin-bottom: 1rem;">
+        Man startet oben und arbeitet sich Ebene für Ebene nach unten. 
+        Jede Antwort führt zu neuen, tieferen Fragen — bis am Ende der perfekte Spruch oder die perfekte Geschichte wartet.
+        Man kann <strong>klicken</strong> oder <strong>tippen</strong> — die App versteht beides! ✨
+      </p>
+
+      <div class="tree-visual">
+        <div class="level-label">Ebene 1 — Format</div>
+        <div class="tree-level">
+          <div class="tree-node l1">📝 Spruch</div>
+          <div class="tree-node l1">📖 Kurzgeschichte</div>
+        </div>
+
+        <div class="tree-connector"></div>
+
+        <div class="level-label">Ebene 2 — Wie geht's dir?</div>
+        <div class="tree-level">
+          <div class="tree-node l2">😊 Gut</div>
+          <div class="tree-node l2">😔 Nicht so gut</div>
+        </div>
+
+        <div class="tree-connector"></div>
+
+        <div class="level-label">Ebene 3 — Was brauchst du?</div>
+        <div class="tree-level">
+          <div class="tree-node l3">💪 Mut</div>
+          <div class="tree-node l3">🎯 Motivation</div>
+          <div class="tree-node l3">🤗 Trost</div>
+          <div class="tree-node l3">😂 Spaß</div>
+          <div class="tree-node l3">🌙 Ruhe</div>
+        </div>
+
+        <div class="tree-connector"></div>
+
+        <div class="level-label">Ebene 4 — Genre</div>
+        <div class="tree-level">
+          <div class="tree-node l4">🧙 Fantasy</div>
+          <div class="tree-node l4">🔍 Krimi</div>
+          <div class="tree-node l4">🚀 SciFi</div>
+          <div class="tree-node l4">⛰️ Abenteuer</div>
+          <div class="tree-node l4">😂 Lustig</div>
+        </div>
+
+        <div class="tree-connector"></div>
+
+        <div class="level-label">Ergebnis ✨</div>
+        <div class="tree-level">
+          <div class="tree-node l-result">🌟 Dein persönlicher Spruch / Geschichte</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Must-Have -->
+    <div class="card">
+      <h2><span class="icon">✅</span> Das kommt rein (Must-have)</h2>
+      <ul class="features">
+        <li>
+          <span class="feat-icon">🏠</span>
+          <div><strong>Schöne Startseite</strong> — Begrüßung mit Farbverlauf, einladend & warm</div>
+        </li>
+        <li>
+          <span class="feat-icon">🔀</span>
+          <div><strong>Format-Auswahl</strong> — Spruch (schnell) oder Kurzgeschichte (wenn man mehr Zeit hat)</div>
+        </li>
+        <li>
+          <span class="feat-icon">🌳</span>
+          <div><strong>4-Ebenen Gefühlsbaum</strong> — Fragen verzweigen sich, werden immer mehr & tiefer</div>
+        </li>
+        <li>
+          <span class="feat-icon">⌨️</span>
+          <div><strong>Freitext mit Fuzzy-Logik</strong> — Man kann auch tippen statt nur klicken, die App versteht was gemeint ist</div>
+        </li>
+        <li>
+          <span class="feat-icon">🎭</span>
+          <div><strong>5 Genres</strong> — Fantasy, Krimi, SciFi, Abenteuer, Lustig</div>
+        </li>
+        <li>
+          <span class="feat-icon">💝</span>
+          <div><strong>Ergebnis-Seite</strong> — Wunderschön gestalteter Spruch oder Geschichte, passend zum Genre</div>
+        </li>
+        <li>
+          <span class="feat-icon">🎨</span>
+          <div><strong>Pastell-Design</strong> — Farbverläufe, schlicht & schön, Farben passen sich dem Genre an</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Genres -->
+    <div class="card">
+      <h2><span class="icon">🎭</span> Die 5 Genres</h2>
+      <p>Jedes Genre bekommt eigene Farben und eigene Sprüche & Geschichten:</p>
+      <div class="genres">
+        <span class="genre-tag genre-fantasy">🧙 Fantasy</span>
+        <span class="genre-tag genre-krimi">🔍 Krimi</span>
+        <span class="genre-tag genre-scifi">🚀 SciFi</span>
+        <span class="genre-tag genre-abenteuer">⛰️ Abenteuer</span>
+        <span class="genre-tag genre-lustig">😂 Lustig</span>
+      </div>
+    </div>
+
+    <!-- Design -->
+    <div class="card">
+      <h2><span class="icon">🎨</span> Design-Richtung</h2>
+      <p>Pastell, schlicht, Farbverläufe — die Farben passen sich dem Genre und der Stimmung an.</p>
+      <div class="color-palette" style="margin-bottom: 2rem;">
+        <div class="color-swatch" style="background: linear-gradient(135deg, #f8bbd0, #f48fb1);">
+          <span class="color-name">Rosa</span>
+        </div>
+        <div class="color-swatch" style="background: linear-gradient(135deg, #e1bee7, #ce93d8);">
+          <span class="color-name">Lila</span>
+        </div>
+        <div class="color-swatch" style="background: linear-gradient(135deg, #c5cae9, #9fa8da);">
+          <span class="color-name">Blau</span>
+        </div>
+        <div class="color-swatch" style="background: linear-gradient(135deg, #b2dfdb, #80cbc4);">
+          <span class="color-name">Mint</span>
+        </div>
+        <div class="color-swatch" style="background: linear-gradient(135deg, #fff9c4, #fff176);">
+          <span class="color-name">Gelb</span>
+        </div>
+        <div class="color-swatch" style="background: linear-gradient(135deg, #ffe0b2, #ffcc80);">
+          <span class="color-name">Peach</span>
+        </div>
+        <div class="color-swatch" style="background: linear-gradient(135deg, #dcedc8, #c5e1a5);">
+          <span class="color-name">Grün</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nice to have -->
+    <div class="card nice-to-have">
+      <h2><span class="icon">🎁</span> Falls noch Zeit bleibt (Nice-to-have)</h2>
+      <ul class="features">
+        <li>
+          <span class="feat-icon">⭐</span>
+          <div><strong>Favoriten speichern</strong> — Lieblings-Sprüche merken & später wiederfinden</div>
+        </li>
+        <li>
+          <span class="feat-icon">📤</span>
+          <div><strong>Teilen-Button</strong> — Spruch per WhatsApp oder Link verschicken</div>
+        </li>
+        <li>
+          <span class="feat-icon">✨</span>
+          <div><strong>Sanfte Animationen</strong> — Schöne Übergänge zwischen den Ebenen</div>
+        </li>
+        <li>
+          <span class="feat-icon">🔄</span>
+          <div><strong>Nochmal-Button</strong> — Neue Runde, neuer Spruch!</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Bauplan / Workflow -->
+    <div class="card">
+      <h2><span class="icon">🔧</span> So bauen wir's</h2>
+      <div class="workflow">
+        <div class="workflow-step step-1">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Grundgerüst</strong>
+            Startseite mit Design, Navigation, Grundstruktur
+          </div>
+        </div>
+        <div class="workflow-step step-2">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Gefühlsbaum</strong>
+            Die 4 Ebenen mit Fragen & Verzweigungen
+          </div>
+        </div>
+        <div class="workflow-step step-3">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>Freitext & Fuzzy-Logik</strong>
+            Tippen statt nur klicken — die App versteht was du meinst
+          </div>
+        </div>
+        <div class="workflow-step step-4">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <strong>Sprüche & Geschichten</strong>
+            Für jedes Genre & jede Stimmung den passenden Inhalt
+          </div>
+        </div>
+        <div class="workflow-step step-5">
+          <div class="step-num">5</div>
+          <div class="step-text">
+            <strong>Live schalten! 🎉</strong>
+            App auf GitHub Pages veröffentlichen & Link teilen
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technik -->
+    <div class="card">
+      <h2><span class="icon">⚙️</span> Technik</h2>
+      <p>Alles läuft direkt im Browser — keine Installation, kein Server, einfach öffnen und los!</p>
+      <div class="tech-badges">
+        <span class="tech-badge">🟧 HTML</span>
+        <span class="tech-badge">🟦 CSS</span>
+        <span class="tech-badge">🟨 JavaScript</span>
+        <span class="tech-badge">📱 Mobile-ready</span>
+        <span class="tech-badge">💾 localStorage</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="card cta-card">
+      <h2><span class="icon">🚀</span> Bereit?</h2>
+      <p>Wenn der Plan steht, legen wir los!</p>
+      <div class="status-badge">⏳ Warten auf Startschuss</div>
+    </div>
+
+    <div class="footer">
+      GirlsDay 2026 @ FREICON · Leni, Luise, Lotta & Andreas 💛
+    </div>
+
+  </div>
+
+</body>
+</html>
