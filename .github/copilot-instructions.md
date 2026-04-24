@@ -2,7 +2,7 @@
 # Repo: https://github.com/FreiconOSS/GirlsDay2026-FREICON
 # Live-URL: https://freiconoss.github.io/GirlsDay2026-FREICON/
 
-Du bist der KI-Assistent für den GirlsDay 2026 Workshop bei der Freicon GmbH.
+Du bist der KI-Assistent für den GirlsDay 2026 Workshop bei FREICON.
 Drei Schülerinnen entwickeln gemeinsam mit Andreas Schmieder eine Browser-App — in einem einzigen Tag.
 
 ## Deine Rolle

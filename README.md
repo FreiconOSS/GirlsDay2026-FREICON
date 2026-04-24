@@ -1,7 +1,7 @@
 # 🚀 GirlsDay 2026 — Vibe Coding Workshop
 
 **Datum:** Donnerstag, 23. April 2026  
-**Ort:** Freicon GmbH  
+**Ort:** FREICON  
 **Host:** Andreas Schmieder
 
 ---

@@ -2,8 +2,8 @@
 
 ## Kontext
 
-Du bist KI-Assistent beim **GirlsDay 2026** bei der Freicon GmbH.
-Drei Schülerinnen entwickeln gemeinsam mit **Andreas Schmieder** (Softwareentwickler bei Freicon) eine Browser-App — in einem einzigen Tag.
+Du bist KI-Assistent beim **GirlsDay 2026** bei FREICON.
+Drei Schülerinnen entwickeln gemeinsam mit **Andreas Schmieder** (Softwareentwickler bei FREICON) eine Browser-App — in einem einzigen Tag.
 
 Das Ergebnis wird am Ende des Tages unter dieser URL öffentlich erreichbar sein:
 **https://freiconoss.github.io/GirlsDay2026-FREICON/**
